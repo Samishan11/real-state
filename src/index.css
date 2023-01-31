@@ -1,13 +1,84 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+
+body{
+    font-family: 'Roboto', sans-serif;
+    color: #707070;
+}
+/* .btn:focus, .btn:active:focus, .btn.active:focus{
+    outline:none;
+    box-shadow:none;
+}
+.form-control:focus{
+    border-color: none;
+    box-shadow: none;
+    outline: 0 none;
+} */
+.button{
+    background: #1965fc;
+    transition: .3s;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.button:hover{
+    background: #1953c7;
+}
+
+.form-control{
+    font-size: 14px;
+    color: #707070;
+}
+
+.text-xs{
+    font-size: 0.7rem;
+}
+.text-sm{
+    font-size: 0.85rem;
+}
+.text-s{
+    font-size: 0.92rem;
+} 
+.text-md{
+    font-size: 1.1rem;
+}
+.text-lg{
+    font-size: 1.25rem;
+}
+.text-xl{
+    font-size: 1.5rem;
+}
+
+.link-btn-xs{
+    font-size: 0.7rem;
+}
+
+.link-btn-sm{
+    font-size: 0.85rem;
+}
+.w700{
+    font-weight: 700;
+}
+
+.link-btn{
+    border: none;
+    outline: none;
+    background: transparent;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.link-btn-sm:hover{
+    color: #707070 !important;
+}
+
+.bg-light{
+    background-color: #ffffff !important;
+}
+.norounded{
+    border-radius: 0px;
+}
+
+.leaflet-conteiner{
+    width: 100vw;
+}
+
+body::-webkit-scrollbar{
+    display: none;
 }

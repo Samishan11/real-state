@@ -1,23 +1,71 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import "./index.css";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Profile from "./pages/profile/Profile";
+import Login from "./pages/login/Login";
+import Register from "./pages/register/Register";
+import Dashboard from "./pages/dashboard/Dashboard";
+import { UserProvider } from "./context/userContext";
+import ListProperty from "./pages/properties/ListProperty";
+import { ListingProvider } from "./context/listingContext";
+import { RoomProvider } from "./context/roomContext";
+import RoomProperty from "./pages/rooms/RoomProperty";
+import Home from "./pages/home/Home";
+
+import Listings from "./pages/properties/Listings";
+import UpdateListing from "./pages/properties/update/UpdateListing";
+import Viewpropertydetails from "./pages/properties/Viewpropertydetails";
+import SearchProperty from "./pages/properties/searchProperties/SearchProperty";
+
+import MyListings from "./pages/dashboard/components/MyListings";
+import Rentings from "./pages/dashboard/components/Rentings";
+
+import ResetPasswordLink from "./pages/login/ResetPasswordLink";
+import ResetPassword from "./pages/login/ResetPassword";
+import Footer from "./components/Footer"
+import Bookings from "./pages/dashboard/components/Bookings";
+import Map from "./pages/properties/Map";
+import Category from "./pages/home/Category";
+import Bookingmy from "./pages/dashboard/components/Bookingmy";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="main">
+      <UserProvider>
+        <ToastContainer className="mt-5"></ToastContainer>
+        <Router>
+          {/* Make Routes Here */}
+          <Routes>
+            <Route exact path="/profile" element={<Profile></Profile>}></Route>
+            <Route exact path="/register" element={<Register></Register>}></Route>
+            <Route exact path="/login" element={<Login></Login>}></Route>
+            <Route exact path="/dashboard" element={<Dashboard></Dashboard>}></Route>
+            <Route exact path="/my-listings" element={<MyListings></MyListings>}></Route>
+            <Route exact path="/view-details/:propertyId" element={<Viewpropertydetails></Viewpropertydetails>}></Route>
+            <Route exact path="/list-property/:section" element={<ListingProvider><ListProperty></ListProperty></ListingProvider>}></Route>
+            <Route exact path="/list-property-summary/:propertyId/:section" element={<ListingProvider><ListProperty></ListProperty></ListingProvider>}></Route>
+            <Route exact path="/list-property/:propertyId/update/:section" element={<ListingProvider><UpdateListing></UpdateListing></ListingProvider>}></Route>
+            <Route exact path="/add-room/:propertyId/:section" element={<RoomProvider><RoomProperty></RoomProperty></RoomProvider>}></Route>
+
+            <Route exact path="/my-listing" element={<Listings></Listings>}></Route>
+            <Route exact path="/rentings/:type" element={<Rentings></Rentings>}></Route>
+            <Route exact path="/bookings/:type" element={<Bookings></Bookings>}></Route>
+            <Route exact path="/booking" element={<Bookingmy></Bookingmy>}></Route>
+
+            <Route exact path="/search-property/:query" element={<SearchProperty></SearchProperty>}></Route>
+            <Route exact path="/" element={<Home></Home>}></Route>
+
+            <Route path="/reset-password-link" element={<ResetPasswordLink></ResetPasswordLink>}></Route>
+            <Route path="/reset-password/:token" element={<ResetPassword></ResetPassword>}></Route>
+            <Route path="/map" element={<Map></Map>}></Route>
+
+            <Route path="/properties-category" element={<Category></Category>}></Route>
+          </Routes>
+        </Router>
+      </UserProvider>
+      <Footer></Footer>
     </div>
   );
 }
