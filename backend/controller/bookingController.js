@@ -57,3 +57,15 @@ exports.mybooking = async (req, res) => {
     res.json(bookings);
 }
 
+exports.mybookingdone = async (req, res) => {
+    const bookings = await Booking.find({ user: req.userInfo._id }).populate('property').populate('user');
+    const filter = bookings.filter((data)=>{
+        if(data.accept){
+            return data;
+        }
+    })
+    console.log(bookings)
+    console.log(filter)
+    res.json(filter);
+}
+

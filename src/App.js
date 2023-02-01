@@ -29,6 +29,8 @@ import Bookings from "./pages/dashboard/components/Bookings";
 import Map from "./pages/properties/Map";
 import Category from "./pages/home/Category";
 import Bookingmy from "./pages/dashboard/components/Bookingmy";
+import Buy from "./pages/dashboard/components/Buy";
+import AdminDash from "./components/admin/AdminDash";
 
 function App() {
   return (
@@ -42,6 +44,7 @@ function App() {
             <Route exact path="/register" element={<Register></Register>}></Route>
             <Route exact path="/login" element={<Login></Login>}></Route>
             <Route exact path="/dashboard" element={<Dashboard></Dashboard>}></Route>
+            <Route exact path="/admin" element={<AdminDash></AdminDash>}></Route>
             <Route exact path="/my-listings" element={<MyListings></MyListings>}></Route>
             <Route exact path="/view-details/:propertyId" element={<Viewpropertydetails></Viewpropertydetails>}></Route>
             <Route exact path="/list-property/:section" element={<ListingProvider><ListProperty></ListProperty></ListingProvider>}></Route>
@@ -53,6 +56,7 @@ function App() {
             <Route exact path="/rentings/:type" element={<Rentings></Rentings>}></Route>
             <Route exact path="/bookings/:type" element={<Bookings></Bookings>}></Route>
             <Route exact path="/booking" element={<Bookingmy></Bookingmy>}></Route>
+            <Route exact path="/bookings" element={<Buy></Buy>}></Route>
 
             <Route exact path="/search-property/:query" element={<SearchProperty></SearchProperty>}></Route>
             <Route exact path="/" element={<Home></Home>}></Route>

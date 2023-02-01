@@ -95,6 +95,26 @@ const Dashboard = () => {
                 />
                 <div className="ms-2">
                   <p className="text text-md fw-bold mb-0">
+                   Property Buy
+                  </p>
+                  <p className="text text-secondary text-s">
+                    See your buying history here.
+                  </p>
+                  <Link to={'/bookings'} className="btn btn-outline-primary px-4">
+                    View Property You Buy
+                  </Link>
+                </div>
+              </div>
+            </div>
+            <div className="px-3 py-2 border border-2 border-muted rounded mb-4">
+              <div className="d-flex justify-content-start align-items-center mx-md-3 mx-sm-1 py-3">
+              <img
+                  src="/images/my-prop.png"
+                  className="propertyImage text-center"
+                  alt=""
+                />
+                <div className="ms-2">
+                  <p className="text text-md fw-bold mb-0">
                   My Property Bookings
                   </p>
                   <Link to={'/booking'} className="btn btn-outline-primary px-4">

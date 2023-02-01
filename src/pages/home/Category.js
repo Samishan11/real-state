@@ -53,21 +53,16 @@ const Category = (props) => {
   const property_types = [
     {
       "id": 1,
-      "name": "hostel",
-      "title": "Hostel"
+      "name": "land",
+      "title": "Land"
     },
     {
       "id": 2,
-      "name": "room",
-      "title": "Room"
+      "name": "building",
+      "title": "Building"
     },
     {
       "id": 3,
-      "name": "hotel",
-      "title": "Hotel"
-    },
-    {
-      "id": 4,
       "name": "apartment",
       "title": "Apartment"
     }
@@ -164,109 +159,7 @@ const Category = (props) => {
 
 
 
-                    <hr className="my-2 bg-dark" />
-                    <div className="py-2 px-3">
-                      <p className="text text-secondary text-s fw-bold mb-2">
-                        Rating Score:
-                      </p>
-                      <div className="">
-                        <div className="mb-2 d-flex justify-content-between align-items-center">
-                          <div className="form-check">
-                            <input
-                              className="form-check-input"
-                              type="radio"
-                              name='rating'
-                              defaultValue={0}
-                              id="rating0to1"
-                              onChange={() => setRating(0)}
-                            />
-                            <label
-                              className="form-check-label text-sm"
-                              htmlFor="rating0to1"
-                            >
-                              0 to 1
-                            </label>
-                          </div>
-                          {/* <p className="text text-xs mb-0">60</p> */}
-                        </div>
-                        <div className="mb-2 d-flex justify-content-between align-items-center">
-                          <div className="form-check">
-                            <input
-                              className="form-check-input"
-                              type="radio"
-                              name="rating"
-                              defaultValue={1}
-                              id="rating1to2"
-                              onChange={() => setRating(1)}
-                            />
-                            <label
-                              className="form-check-label text-sm"
-                              htmlFor="rating1to2"
-                            >
-                              Between 1-2
-                            </label>
-                          </div>
-                          {/* <p className="text text-xs mb-0">60</p> */}
-                        </div>
-                        <div className="mb-2 d-flex justify-content-between align-items-center">
-                          <div className="form-check">
-                            <input
-                              className="form-check-input"
-                              type="radio"
-                              name="rating"
-                              defaultValue={2}
-                              id="rating2to3"
-                              onChange={() => setRating(2)}
-                            />
-                            <label
-                              className="form-check-label text-sm"
-                              htmlFor="rating2to3"
-                            >
-                              Between 2-3
-                            </label>
-                          </div>
-                          {/* <p className="text text-xs mb-0">60</p> */}
-                        </div>
-                        <div className="mb-2 d-flex justify-content-between align-items-center">
-                          <div className="form-check">
-                            <input
-                              className="form-check-input"
-                              type="radio"
-                              name="rating"
-                              defaultValue={3}
-                              id="rating3to4"
-                              onChange={() => setRating(3)}
-                            />
-                            <label
-                              className="form-check-label text-sm"
-                              htmlFor="rating3to4"
-                            >
-                              Between 3-4
-                            </label>
-                          </div>
-                          {/* <p className="text text-xs mb-0">60</p> */}
-                        </div>
-                        <div className="mb-2 d-flex justify-content-between align-items-center">
-                          <div className="form-check">
-                            <input
-                              className="form-check-input"
-                              type="radio"
-                              name="rating"
-                              defaultValue={4}
-                              id="rating4to5"
-                              onChange={() => setRating(4)}
-                            />
-                            <label
-                              className="form-check-label text-sm"
-                              htmlFor="rating4to5"
-                            >
-                              Between 4-5
-                            </label>
-                          </div>
-                          {/* <p className="text text-xs mb-0">60</p> */}
-                        </div>
-                      </div>
-                    </div>
+                    
                     <hr className="my-2 bg-dark" />
                     <div className="py-2 px-3">
                       <p className="text text-secondary text-s w700 mb-2">
@@ -389,25 +282,7 @@ const Category = (props) => {
                               </div>
                               <div className="col-md-3">
                                 <div className="p-1 text-md-end text-start">
-                                  <div className="d-flex justify-content-md-end justify-content-start align-items-center mb-3">
-                                    <Link to="#" className="text-decoration-none">
-                                      <div className="d-flex justify-content-start align-items-center me-2">
-                                        <i className="fa-solid fa-star text-warning"></i>
-                                        <p className="text mb-0 ms-1">{result?.rating}</p>
-                                      </div>
-                                    </Link>
-                                    <ion-icon
-                                      name="ellipse"
-                                      style={{ color: "#575757", fontSize: "6px" }}
-                                    ></ion-icon>
-                                    <Link to="#" className="text-decoration-none mb-0">
-                                      <p
-                                        className="text ms-2 mb-0"
-                                      >
-                                        19 Reviews
-                                      </p>
-                                    </Link>
-                                  </div>
+                                
                                   <div className="mb-3">
                                     <p
                                       className="text text-secondary mb-0"
@@ -486,7 +361,7 @@ const Category = (props) => {
                                     name="ellipse"
                                     style={{ color: "#707070", fontSize: "0.4rem" }}
                                   ></ion-icon>
-                                  <Link to="#" className="text-decoration-none">
+                                  <Link to={`/view-details/${result._id}`} className="text-decoration-none">
                                     <p
                                       className="text-xs mb-0 mx-2 text-primary"
                                     // style={{ color: "#707070" }}
@@ -519,25 +394,7 @@ const Category = (props) => {
                             </div>
                             <div className="col-md-3">
                               <div className="p-1 text-md-end text-start">
-                                <div className="d-flex justify-content-md-end justify-content-start align-items-center mb-3">
-                                  <Link to="#" className="text-decoration-none">
-                                    <div className="d-flex justify-content-start align-items-center me-2">
-                                      <i className="fa-solid fa-star text-warning"></i>
-                                      <p className="text mb-0 ms-1">{result?.rating}</p>
-                                    </div>
-                                  </Link>
-                                  <ion-icon
-                                    name="ellipse"
-                                    style={{ color: "#575757", fontSize: "6px" }}
-                                  ></ion-icon>
-                                  <Link to="#" className="text-decoration-none mb-0">
-                                    <p
-                                      className="text ms-2 mb-0"
-                                    >
-                                      19 Reviews
-                                    </p>
-                                  </Link>
-                                </div>
+                                
                                 <div className="mb-3">
                                   <p
                                     className="text text-secondary mb-0"
@@ -549,7 +406,7 @@ const Category = (props) => {
                                     <p
                                       className="text text-secondary mb-0 fs-6 fw-bold"
                                     >
-                                      NPR {result?.price} <small>{result?.payment_type === "on-sale" ? "" : result?.payment_type === "monthly" ? "per month" : "per night"}</small>
+                                      Price: NRP {result?.price} 
                                     </p>
                                     {
                                       result.category === "hotel" ?

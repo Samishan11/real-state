@@ -14,9 +14,6 @@ const Navbar = () => {
                 <div className='container col-10 mx-auto'>
                     <Link to={'/'} style={{ textDecoration: "none" }}>
                         <div className="logo d-flex">
-                            <div className="icon mt-2">
-                                <i className='fs-2'><ion-icon name="business-outline"></ion-icon></i>
-                            </div>
                             <div className="title fs-5 mt-3">
                                 <p className='fw-bold'>Real<span className='text-primary'>State</span></p>
                             </div>
@@ -28,6 +25,10 @@ const Navbar = () => {
                         <div className="navbar-nav mx-5">
                             <Link className="nav-item nav-link" to="/">Home</Link>
                             <Link className="nav-item nav-link" to="/properties-category">All Listing</Link>
+                            {
+                                localStorage.getItem('token') &&
+                                <Link className="nav-item nav-link" to="/list-property/category">List Property</Link>
+                            }
                         </div>
                         <hr />
                         <div className="navbar-nav ms-auto">
@@ -40,7 +41,7 @@ const Navbar = () => {
                                                 </Link>
                                                 <Link className='' to={'/dashboard'} style={{ textDecoration: "none" }}>
                                                     <div className='d-flex'>
-                                                        <i className='fas fa-user rounded-circle bg-dark d-flex justify-content-center align-items-center text-light' style={{width:'30px' ,height:"30px"}}></i>
+                                                        <i className='fas fa-user rounded-circle bg-dark d-flex justify-content-center align-items-center text-light' style={{ width: '30px', height: "30px" }}></i>
                                                     </div>
                                                 </Link>
                                                 <button onClick={logout} className='btn border ms-2 p-0 px-2 rounded'><i class="fa-solid fa-arrow-right-from-bracket"></i></button>

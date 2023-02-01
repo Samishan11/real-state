@@ -3,24 +3,21 @@ import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import Navbar from '../../../components/Navbar'
 
-const Bookings = () => {
+const Buy = () => {
 
-    const [bookings, setBookings] = useState()
-    const booking_type = useParams().type
-
+    const [bookings, setBookings] = useState() 
+    const [load, setLoad] = useState(false) 
     useEffect(() => {
-        axios.get("/my-bookings/"+booking_type).then(function (res) {
-            console.log(res.data)
+        axios.get("/bookings").then(function (res) {
             setBookings(res.data)
         })
-    }, [booking_type])
-
+    }, [load])
     return (
         <>
             <Navbar></Navbar>
             <div className='container col-md-10 my-4'>
                 <div className='row mx-auto px-4'>
-                    <p className='m-0'>View your property booking history here.</p>
+                    <p className='m-0'>View your property buy history here.</p>
                     <Link to={'/bookings/vendor'} className='link-btn text-xs text-primary'>View bookings on my listings</Link>
                     {
                         bookings ?
@@ -40,7 +37,7 @@ const Bookings = () => {
                                                                                 <img className='rounded' style={{ height: "30ch", width: "40ch", objectFit: "cover" }} src={`http://localhost:5000/${val.property.images[0]}`} alt="" />
                                                                                 <div className="about-hostel-owner mb-4 mt-4">
                                                                                     <p className="text-sm text-secondary mb-1 fw-bold">
-                                                                                        Booked By
+                                                                                        Buy By
                                                                                     </p>
                                                                                     <div className='d-flex my-2'>
                                                                                         <div>
@@ -131,7 +128,7 @@ const Bookings = () => {
                                                                                 <div className='d-flex flex-wrap'>
                                                                                     <p className='m-0 text-sm fw-bold'>Total Price</p>
                                                                                     {/* <p className='m-0 text-sm ms-auto rounded'>NPR { parseInt(val.price) * (new Date(val.booking_till).getDate() - new Date(val.booking_at).getDate())} per Night</p> */}
-                                                                                    <p className='m-0 text-sm ms-auto rounded'>NPR { val.room?.price? val.room?.price :val.property.price * (new Date(val.booking_till).getDate() - new Date(val.booking_at).getDate()) } for {(new Date(val.booking_till).getDate() - new Date(val.booking_at).getDate())} Night(s)</p>
+                                                                                    <p className='m-0 text-sm ms-auto rounded'>NPR {val.room?.price ? val.room?.price : val.property.price * (new Date(val.booking_till).getDate() - new Date(val.booking_at).getDate())} for {(new Date(val.booking_till).getDate() - new Date(val.booking_at).getDate())} Night(s)</p>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -147,25 +144,25 @@ const Bookings = () => {
                                                                                         Booked By
                                                                                     </p>
                                                                                     <div className='d-flex my-2'>
-                                                                                        <div>
-                                                                                            <img className='rounded-circle' src={`http://localhost:5000/${val.user.image}`} style={{ height: "8ch", width: "8ch", objectFit: "cover" }} alt="" />
-                                                                                        </div>
                                                                                         <div className='mx-2 my-auto'>
-                                                                                            <p className='m-0 text-sm'>{val.user.username}</p>
-                                                                                            <p className='m-0 text-sm'>{val.user.firstName} {val.user.lastName}</p>
+                                                                                            <p className='m-0 text-sm'>{val?.user?.username}</p>
+                                                                                            <p className='m-0 text-sm'>{val?.user?.firstName} {val?.user?.lastName}</p>
                                                                                             <div className=''>
                                                                                                 <span className='text-xs text-center px-1 text-light m-0 rounded d-block w-50' style={{ background: "#42EA5A" }}>{val.user.verified ? "Verified" : ""}</span>
                                                                                             </div>
-                                                                                            <span className='text-xs'><i className='fa-solid fa-star me-1 text-warning'></i>{val.user.rating.toFixed(1)}</span>
+                                                                                            {
+                                                                                                val?.accept &&
+                                                                                                <button className='btn btn-success btn-sm my-2 px-2'>Property Buy</button>
+                                                                                            }
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
                                                                             <div className='mx-3 col-md-4'>
                                                                                 <div>
-                                                                                    <p className='m-0 fw-bold fs-5'>{val.property.title}</p>
-                                                                                    <small className='text-xs rounded bg-primary text-light fw-bold py-1 px-1'>{val.property.rating.toFixed(1)}</small>
-                                                                                    <small className='text-xs mx-2'><i className='fa-solid fa-location-dot me-1'></i>{val.property.address.address} - {val.property.address.city}</small>
+                                                                                    <p className='m-0 fw-bold fs-5'>{val?.property?.title}</p>
+                                                                                    <small className='text-xs rounded bg-primary text-light fw-bold py-1 px-1'>{val?.property?.rating.toFixed(1)}</small>
+                                                                                    <small className='text-xs mx-2'><i className='fa-solid fa-location-dot me-1'></i>{val?.property?.address?.address} - {val?.property?.address?.city}</small>
                                                                                 </div>
                                                                                 {
                                                                                     val.room ?
@@ -217,19 +214,18 @@ const Bookings = () => {
                                                                                     <small className='text-sm'><i className='fa-solid fa-square-check me-1'></i>Booked</small>
                                                                                     <small className='d-block text-sm'>{new Date(val.booked_on).toDateString()}</small>
                                                                                 </div>
-                                                                                <hr />
                                                                                {
-                                                                                val?.property?.category !== 'land' &&
-                                                                                 <div>
-                                                                                 <p className='text-sm m-0'>Guests</p>
-                                                                                 <small className='me-3'><i className='fa-solid fa-user me-1'></i>{val.people.adult} Adult</small>
-                                                                                 <small className='mx-3'><i className='fa-solid fa-child me-1'></i>{val.people.child} Child</small>
-                                                                             </div>
+                                                                                val?.property?.category !== "land" && 
+                                                                                <div>
+                                                                                <p className='text-sm m-0'>Guests</p>
+                                                                                <small className='me-3'><i className='fa-solid fa-user me-1'></i>{val.people.adult} Adult</small>
+                                                                                <small className='mx-3'><i className='fa-solid fa-child me-1'></i>{val.people.child} Child</small>
+                                                                            </div>
                                                                                }
                                                                                 <hr />
                                                                                 <div className='d-flex flex-wrap'>
                                                                                     <p className='m-0 text-sm fw-bold'>Price</p>
-                                                                                    <p className='m-0 text-sm ms-auto rounded'>NPR {val.property.price} per Month</p>
+                                                                                    <p className='m-0 text-sm ms-auto rounded'>NPR {val?.offer_price}</p>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -251,4 +247,4 @@ const Bookings = () => {
     )
 }
 
-export default Bookings
+export default Buy;
