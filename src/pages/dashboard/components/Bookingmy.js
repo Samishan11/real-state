@@ -1,18 +1,14 @@
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import Navbar from '../../../components/Navbar'
-
+import { NotificationContext } from '../../../context/Notificationcontext'
 const Bookingmy = () => {
 
-    const [bookings, setBookings] = useState() 
-    const [load, setLoad] = useState(false) 
-    useEffect(() => {
-        axios.get("/my-booking").then(function (res) {
-            setBookings(res.data)
-        })
-    }, [load])
+    const [book] = useContext(NotificationContext);
+    const [bookings, setBookings] = useState()
+    const [load, setLoad] = useState(false)
 
     const updateBooking = (id) => {
         axios.put('/update/booking/' + id, {
@@ -33,13 +29,13 @@ const Bookingmy = () => {
                     <p className='m-0'>View your booking history here.</p>
                     <Link to={'/bookings/vendor'} className='link-btn text-xs text-primary'>View bookings on my listings</Link>
                     {
-                        bookings ?
+                        book ?
                             <>
                                 {
-                                    bookings.length > 0 ?
+                                    book?.length > 0 ?
                                         <>
                                             {
-                                                bookings.map((val, ind) => {
+                                                book?.map((val, ind) => {
                                                     return (
                                                         <>
                                                             {
@@ -161,13 +157,13 @@ const Bookingmy = () => {
                                                                                             <p className='m-0 text-sm'>{val?.user?.username}</p>
                                                                                             <p className='m-0 text-sm'>{val?.user?.firstName} {val?.user?.lastName}</p>
                                                                                             <div className=''>
-                                                                                                <span className='text-xs text-center px-1 text-light m-0 rounded d-block w-50' style={{ background: "#42EA5A" }}>{val.user.verified ? "Verified" : ""}</span>
+                                                                                                <span className='text-xs text-center px-1 text-light m-0 rounded d-block w-50' style={{ background: "#42EA5A" }}>{val?.user?.verified ? "Verified" : ""}</span>
                                                                                             </div>
                                                                                             {
                                                                                                 val?.accept ?
-                                                                                                <button className='btn btn-success btn-sm my-2 px-2'>Sell</button>
-                                                                                                :
-                                                                                            <button onClick={()=>updateBooking(val?.property?._id)} className='btn btn-primary btn-sm my-2'>Accept</button>
+                                                                                                    <button className='btn btn-success btn-sm my-2 px-2'>Sell</button>
+                                                                                                    :
+                                                                                                    <button onClick={() => updateBooking(val?.property?._id)} className='btn btn-primary btn-sm my-2'>Accept</button>
 
                                                                                             }
                                                                                         </div>
@@ -230,14 +226,14 @@ const Bookingmy = () => {
                                                                                     <small className='text-sm'><i className='fa-solid fa-square-check me-1'></i>Booked</small>
                                                                                     <small className='d-block text-sm'>{new Date(val.booked_on).toDateString()}</small>
                                                                                 </div>
-                                                                               {
-                                                                                val?.property?.category !== "land" && 
-                                                                                <div>
-                                                                                <p className='text-sm m-0'>Guests</p>
-                                                                                <small className='me-3'><i className='fa-solid fa-user me-1'></i>{val.people.adult} Adult</small>
-                                                                                <small className='mx-3'><i className='fa-solid fa-child me-1'></i>{val.people.child} Child</small>
-                                                                            </div>
-                                                                               }
+                                                                                {
+                                                                                    val?.property?.category !== "land" &&
+                                                                                    <div>
+                                                                                        <p className='text-sm m-0'>Guests</p>
+                                                                                        <small className='me-3'><i className='fa-solid fa-user me-1'></i>{val.people.adult} Adult</small>
+                                                                                        <small className='mx-3'><i className='fa-solid fa-child me-1'></i>{val.people.child} Child</small>
+                                                                                    </div>
+                                                                                }
                                                                                 <hr />
                                                                                 <div className='d-flex flex-wrap'>
                                                                                     <p className='m-0 text-sm fw-bold'>Price</p>

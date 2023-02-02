@@ -1,13 +1,23 @@
-import React, { useContext } from 'react'
+import axios from 'axios';
+import React, { useContext, useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { UserContext } from '../context/userContext';
-
+import { NotificationContext } from '../context/Notificationcontext';
 const Navbar = () => {
-    const [user, setUser] = useContext(UserContext)
+    const [book, setBook] = useContext(NotificationContext);
+    console.log(book)
+    var filterr;
+    if (book?.length > 0) {
+        const filter = book?.filter(data => {
+            if (!data?.accept) {
+                return filterr = data;
+            }
+        })
+    }
     const logout = () => {
         localStorage.clear()
-        window.location.href = "/"
+        window.location.href = "/";
     }
+    
     return (
         <div className=''>
             <nav className="navbar navbar-expand-lg navbar-light border bg-light">
@@ -37,10 +47,12 @@ const Navbar = () => {
                                     localStorage.getItem('token') ?
                                         <>
                                             <div className='d-flex'>
-                                               
+
                                                 <Link className='me-3' to={'/booking'} style={{ textDecoration: "none" }}>
                                                     <div className='d-flex'>
-                                                        <i className='fas fa-bell rounded-circle bg-dark d-flex justify-content-center align-items-center text-light' style={{ width: '30px', height: "30px" }}><small style={{fontSize:'.7rem'}} className='text-light'>0</small></i>
+                                                        <i className='fas fa-bell rounded-circle bg-dark d-flex justify-content-center align-items-center text-light position-relative' style={{ width: '30px', height: "30px", fontSize: '.9rem', paddingTop: '5px' }}>
+                                                            <small style={{ fontSize: '.6rem', width: '15px', height: '15px', top: '1px', right: '4px' }} className='text-light d-flex justify-content-center align-items-center bg-danger rounded-circle position-absolute'>{filterr?.length > 0 ? filterr?.length : '0'}</small>
+                                                        </i>
                                                     </div>
                                                 </Link>
                                                 <Link className='' to={'/dashboard'} style={{ textDecoration: "none" }}>

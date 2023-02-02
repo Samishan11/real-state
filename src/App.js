@@ -1,6 +1,6 @@
 import "./App.css";
 import "./index.css";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Outlet, Navigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Profile from "./pages/profile/Profile";
@@ -33,44 +33,71 @@ import Buy from "./pages/dashboard/components/Buy";
 import AdminDash from "./components/admin/AdminDash";
 import Manageuser from "./components/admin/Manageuser";
 import Adduser from "./components/admin/Adduser";
+import { RoomBookProvider } from "./context/BookRoomContext";
+import { NotificationProvider } from "./context/Notificationcontext";
 function App() {
+  const ProtectedAdmin = () => {
+    function parseJwt(token) {
+      if (!token) { return; }
+      const base64Url = token.split('.')[1];
+      const base64 = base64Url.replace('-', '+').replace('_', '/');
+      return JSON.parse(window.atob(base64));
+    }
+    const token = localStorage.getItem('token')
+    const user = parseJwt(token);
+    return (
+      user?.user?.admin ?
+        <Outlet></Outlet>
+        :
+        <Navigate to='/login'></Navigate>
+    )
+  }
   return (
+
+
     <div className="main">
       <UserProvider>
-        <ToastContainer className="mt-5"></ToastContainer>
-        <Router>
-          {/* Make Routes Here */}
-          <Routes>
-            <Route exact path="/profile" element={<Profile></Profile>}></Route>
-            <Route exact path="/register" element={<Register></Register>}></Route>
-            <Route exact path="/login" element={<Login></Login>}></Route>
-            <Route exact path="/dashboard" element={<Dashboard></Dashboard>}></Route>
-            <Route exact path="/admin" element={<AdminDash></AdminDash>}></Route>
-            <Route exact path="/manage-user" element={<Manageuser></Manageuser>}></Route>
-            <Route exact path="/add-user" element={<Adduser></Adduser>}></Route>
-            <Route exact path="/my-listings" element={<MyListings></MyListings>}></Route>
-            <Route exact path="/view-details/:propertyId" element={<Viewpropertydetails></Viewpropertydetails>}></Route>
-            <Route exact path="/list-property/:section" element={<ListingProvider><ListProperty></ListProperty></ListingProvider>}></Route>
-            <Route exact path="/list-property-summary/:propertyId/:section" element={<ListingProvider><ListProperty></ListProperty></ListingProvider>}></Route>
-            <Route exact path="/list-property/:propertyId/update/:section" element={<ListingProvider><UpdateListing></UpdateListing></ListingProvider>}></Route>
-            <Route exact path="/add-room/:propertyId/:section" element={<RoomProvider><RoomProperty></RoomProperty></RoomProvider>}></Route>
+        <NotificationProvider>
+          <ToastContainer className="mt-5"></ToastContainer>
+          <Router>
+            {/* Make Routes Here */}
+            <Routes>
+              <Route exact path="/profile" element={<Profile></Profile>}></Route>
+              <Route exact path="/register" element={<Register></Register>}></Route>
+              <Route exact path="/login" element={<Login></Login>}></Route>
+              <Route exact path="/dashboard" element={<Dashboard></Dashboard>}></Route>
 
-            <Route exact path="/my-listing" element={<Listings></Listings>}></Route>
-            <Route exact path="/rentings/:type" element={<Rentings></Rentings>}></Route>
-            <Route exact path="/bookings/:type" element={<Bookings></Bookings>}></Route>
-            <Route exact path="/booking" element={<Bookingmy></Bookingmy>}></Route>
-            <Route exact path="/bookings" element={<Buy></Buy>}></Route>
 
-            <Route exact path="/search-property/:query" element={<SearchProperty></SearchProperty>}></Route>
-            <Route exact path="/" element={<Home></Home>}></Route>
+              <Route element={<ProtectedAdmin></ProtectedAdmin>}>
+                <Route exact path="/admin" element={<AdminDash></AdminDash>}></Route>
+                <Route exact path="/manage-user" element={<Manageuser></Manageuser>}></Route>
+                <Route exact path="/add-user" element={<Adduser></Adduser>}></Route>
+              </Route>
+              <Route exact path="/my-listings" element={<MyListings></MyListings>}></Route>
+              <Route exact path="/view-details/:propertyId" element={<Viewpropertydetails></Viewpropertydetails>}></Route>
+              <Route exact path="/list-property/:section" element={<ListingProvider><ListProperty></ListProperty></ListingProvider>}></Route>
+              <Route exact path="/list-property-summary/:propertyId/:section" element={<ListingProvider><ListProperty></ListProperty></ListingProvider>}></Route>
+              <Route exact path="/list-property/:propertyId/update/:section" element={<ListingProvider><UpdateListing></UpdateListing></ListingProvider>}></Route>
+              <Route exact path="/add-room/:propertyId/:section" element={<RoomProvider><RoomProperty></RoomProperty></RoomProvider>}></Route>
 
-            <Route path="/reset-password-link" element={<ResetPasswordLink></ResetPasswordLink>}></Route>
-            <Route path="/reset-password/:token" element={<ResetPassword></ResetPassword>}></Route>
-            <Route path="/map" element={<Map></Map>}></Route>
+              <Route exact path="/my-listing" element={<Listings></Listings>}></Route>
+              <Route exact path="/rentings/:type" element={<Rentings></Rentings>}></Route>
+              <Route exact path="/bookings/:type" element={<Bookings></Bookings>}></Route>
+              <Route exact path="/booking" element={<Bookingmy></Bookingmy>}></Route>
+              <Route exact path="/bookings" element={<Buy></Buy>}></Route>
 
-            <Route path="/properties-category" element={<Category></Category>}></Route>
-          </Routes>
-        </Router>
+              <Route exact path="/search-property/:query" element={<SearchProperty></SearchProperty>}></Route>
+              <Route exact path="/" element={<Home></Home>}></Route>
+
+              <Route path="/reset-password-link" element={<ResetPasswordLink></ResetPasswordLink>}></Route>
+              <Route path="/reset-password/:token" element={<ResetPassword></ResetPassword>}></Route>
+              <Route path="/map" element={<Map></Map>}></Route>
+
+              <Route path="/properties-category" element={<Category></Category>}></Route>
+            </Routes>
+          </Router>
+        </NotificationProvider>
+
       </UserProvider>
       <Footer></Footer>
     </div>
