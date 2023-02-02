@@ -3,7 +3,7 @@ body{
     font-family: 'Roboto', sans-serif;
     color: #707070;
 }
-/* .btn:focus, .btn:active:focus, .btn.active:focus{
+.btn:focus, .btn:active:focus, .btn.active:focus{
     outline:none;
     box-shadow:none;
 }
@@ -11,7 +11,7 @@ body{
     border-color: none;
     box-shadow: none;
     outline: 0 none;
-} */
+}
 .button{
     background: #1965fc;
     transition: .3s;

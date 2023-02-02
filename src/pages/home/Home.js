@@ -193,21 +193,21 @@ const Home = () => {
       <div className="container col-md-9 mx-auto">
         <h6 className="fw-bold mx-2">Popular Category</h6>
         <div className="row mx-2">
-          <div className="flex-column me-1 col-md-3 p-0 my-3 px-2 d-flex justify-content-center align-items-center" style={{width:'32.95%',background:'#e8f2ff',height:'20vh'}}>
+          <div className="flex-column me-1 col-md-3 p-0 my-3 px-2 d-flex justify-content-center align-items-center" style={{width:'32.95%',background:'#e8f2ff',height:'25vh'}}>
             <div className="circle bg-light d-flex justify-content-center align-items-center rounded-circle" style={{height:'80px',width:'80px'}}>
             <i class="fa-solid h2 fa-landmark"></i>
             </div>
             <small className="fw-bold mt-2">Land</small>
             <small className="mt-2">{filter?.length}</small>
           </div>
-          <div className="flex-column me-1 col-md-3  p-0 my-3 px-2 d-flex justify-content-center align-items-center" style={{width:'32.95%',background:'#e8f2ff',height:'20vh'}}>
+          <div className="flex-column me-1 col-md-3  p-0 my-3 px-2 d-flex justify-content-center align-items-center" style={{width:'32.95%',background:'#e8f2ff',height:'25vh'}}>
             <div className="circle bg-light d-flex justify-content-center align-items-center rounded-circle" style={{height:'80px',width:'80px'}}>
             <i class="fa-solid h2 fa-building"></i>
             </div>
             <small className="fw-bold mt-2">Appartment</small>
             <small className="mt-2">{filter1?.length}</small>
           </div>
-          <div className="flex-column me-1 col-md-3  p-0 my-3 px-2 d-flex justify-content-center align-items-center" style={{width:'32.95%',background:'#e8f2ff',height:'20vh'}}>
+          <div className="flex-column me-1 col-md-3  p-0 my-3 px-2 d-flex justify-content-center align-items-center" style={{width:'32.95%',background:'#e8f2ff',height:'25vh'}}>
             <div className="circle bg-light d-flex justify-content-center align-items-center rounded-circle" style={{height:'80px',width:'80px'}}>
             <i class="fa-solid h2 fa-building"></i>
             </div>

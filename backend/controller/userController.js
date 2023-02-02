@@ -71,6 +71,7 @@ exports.registerUser = async (req, res) => {
       username: data.username,
       password: hashed_pw,
       email: data.email,
+      phone: data.phone
     });
     sData.save(function (err) {
       // console.log(err)
@@ -129,7 +130,7 @@ exports.getAllUser = async (req, res) => {
 
 exports.getUser = async (req, res) => {
   const users = await user.find();
-  res.json({user: users[0]});
+  res.json({ user: users[0] });
 };
 
 exports.changePassword = async (req, res) => {
@@ -195,10 +196,10 @@ exports.sendEmail = async (req, res) => {
   }
 };
 
-exports.setVerified = async(req, res)=>{
-  user.findByIdAndUpdate(req.userInfo._id, {verified: true}, function(err, docs){
-    if(!err){
-      res.json({message: "Verified", success: true})
+exports.setVerified = async (req, res) => {
+  user.findByIdAndUpdate(req.userInfo._id, { verified: true }, function (err, docs) {
+    if (!err) {
+      res.json({ message: "Verified", success: true })
     }
   })
 }
@@ -246,7 +247,7 @@ exports.deleteAccount = async (req, res) => {
   try {
     await user.findOneAndDelete({ _id: req.params.userid });
     await property.deleteMany({ owner: req.params.userid });
-    await comment.deleteMany({ user: req.params.userid });
+    // await comment.deleteMany({ user: req.params.userid });
     res.json({ success: true, message: "user deleted" });
   } catch (err) {
     console.log(err)
@@ -254,23 +255,23 @@ exports.deleteAccount = async (req, res) => {
   }
 };
 
-exports.rateUser = async(req, res)=>{
+exports.rateUser = async (req, res) => {
 
-    const usr = await user.findById(req.body.userId)
+  const usr = await user.findById(req.body.userId)
 
-    var avg = usr.rating;
+  var avg = usr.rating;
 
-    var count = usr.total_ratings;
-    avg_rating = (avg * count)
-    avg_rating = avg_rating + parseInt(req.body.rating) 
-    count = count + 1;
-    avg_rating = avg_rating / count
-    user.findByIdAndUpdate(usr._id, {rating: avg_rating, total_ratings: count}, function(err, docs){
-        if(!err){
-            res.json({message: "Rating updated", success: true})
-        }
+  var count = usr.total_ratings;
+  avg_rating = (avg * count)
+  avg_rating = avg_rating + parseInt(req.body.rating)
+  count = count + 1;
+  avg_rating = avg_rating / count
+  user.findByIdAndUpdate(usr._id, { rating: avg_rating, total_ratings: count }, function (err, docs) {
+    if (!err) {
+      res.json({ message: "Rating updated", success: true })
+    }
 
-    })
+  })
 
 }
 
@@ -344,7 +345,7 @@ exports.facebookLogin = async (req, res) => {
   }
 };
 
-exports.rateUser = async(req, res)=>{
+exports.rateUser = async (req, res) => {
   const usr = await user.findById(req.body.userId)
   var avg = usr.rating;
   var count = usr.total_ratings;
@@ -353,23 +354,23 @@ exports.rateUser = async(req, res)=>{
   count = count + 1;
   avg_rating = avg_rating / count
 
-  user.findByIdAndUpdate(usr._id, {rating: avg_rating, total_ratings: count}, function(err, docs){
-      if(!err){
-          res.json({message: "Rating updated", success: true})
-      }
+  user.findByIdAndUpdate(usr._id, { rating: avg_rating, total_ratings: count }, function (err, docs) {
+    if (!err) {
+      res.json({ message: "Rating updated", success: true })
+    }
   })
 }
 
-exports. reportUser = async(req, res)=>{
-    const reason = req.body.report
-    const user_ = await user.findById(req.body.userId)
-    var reports = user_.reports
-    reports.push({user: req.body.userId, report: reason})
-    user.findByIdAndUpdate(req.body.userId, {reports: reports}, function(err, docs){
-      if(!err){
-        console.log("Updated")
-        res.json({message: "Report Submitted", success: true})
-      }
-    })
+exports.reportUser = async (req, res) => {
+  const reason = req.body.report
+  const user_ = await user.findById(req.body.userId)
+  var reports = user_.reports
+  reports.push({ user: req.body.userId, report: reason })
+  user.findByIdAndUpdate(req.body.userId, { reports: reports }, function (err, docs) {
+    if (!err) {
+      console.log("Updated")
+      res.json({ message: "Report Submitted", success: true })
+    }
+  })
 
-  }
+}

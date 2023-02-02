@@ -31,7 +31,8 @@ import Category from "./pages/home/Category";
 import Bookingmy from "./pages/dashboard/components/Bookingmy";
 import Buy from "./pages/dashboard/components/Buy";
 import AdminDash from "./components/admin/AdminDash";
-
+import Manageuser from "./components/admin/Manageuser";
+import Adduser from "./components/admin/Adduser";
 function App() {
   return (
     <div className="main">
@@ -45,6 +46,8 @@ function App() {
             <Route exact path="/login" element={<Login></Login>}></Route>
             <Route exact path="/dashboard" element={<Dashboard></Dashboard>}></Route>
             <Route exact path="/admin" element={<AdminDash></AdminDash>}></Route>
+            <Route exact path="/manage-user" element={<Manageuser></Manageuser>}></Route>
+            <Route exact path="/add-user" element={<Adduser></Adduser>}></Route>
             <Route exact path="/my-listings" element={<MyListings></MyListings>}></Route>
             <Route exact path="/view-details/:propertyId" element={<Viewpropertydetails></Viewpropertydetails>}></Route>
             <Route exact path="/list-property/:section" element={<ListingProvider><ListProperty></ListProperty></ListingProvider>}></Route>

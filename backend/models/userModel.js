@@ -14,14 +14,17 @@ const user = new mongoose.Schema({
     isDeleted: { type: Boolean, default: false },
     verified:{
         type:Boolean,
-        // required: true,
         default:false
     },
-    rating: {type: Number, default: 0},
-    total_ratings: {type: Number, default: 0},
+    admin:{
+        type:Boolean,
+        default:false
+    },
+    // rating: {type: Number, default: 0},
+    // total_ratings: {type: Number, default: 0},
     facebookId: { type: String },
     googleId: { type: String },
-    reports: {type: [], default:[]}
+    // reports: {type: [], default:[]}
 });
 user.methods.getResetPasswordToken = async function (userId) {
     // Generation Token

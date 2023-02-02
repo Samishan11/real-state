@@ -1,11 +1,36 @@
-import React from "react";
+import axios from "axios";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import Sidebar from "./Sidebar";
-
 const AdminDash = () => {
+  const [user, setUser] = useState([]);
+  const navigate = useNavigate();
+
+  const [load, aa] = useState(false);
+  useEffect(() => {
+      axios.get('/users').then(res => {
+          setUser(res.data)
+      }).catch(e => {
+
+      })
+  }, [load])
+
+  const deleteUsder = async (id) => {
+    console.log(id)
+    try {
+        var res = await axios.delete(`delete-account/${id}`)
+        load ? aa(false) : aa(true)
+        toast.success(res.data.message)
+    } catch (error) {
+        toast.error(error.message)
+    }
+}
+
   return (
     <div className="container-fluid">
       <div className="container" style={{ height: "100vh" }}>
-        <Sidebar></Sidebar>
+        <Sidebar tab={'admin'}></Sidebar>
         <div className="container mx-3">
           <div className="container col-md-10 mx-auto">
             <h4 className="fw-bold mx-2 pt-2">Dashboard Overview</h4>
@@ -64,38 +89,42 @@ const AdminDash = () => {
             </div>
             {/*  */}
             <div className="mt-5 mx-2">
-              <h6 className="m-0">RECENT USERS</h6>
-              {/* {
-                      getJob.map((val, ind) => {
-                        return ( */}
-              <div
-                // key={ind}
-                className="border rounded shadow-sm row align-items-center my-2 mx-0 py-2 job-row"
-              >
-                <div className="col-3 d-flex align-items-center">
-                  <div className="no-img-avatar-sm">ST</div>
-                  <div className="mx-2">
-                    {/* <p className="m-0 text-s">dsfdsaf</p>
-                    <p className="m-0 text-xs">21</p> */}
-                  </div>
-                </div>
-                <div className="col">
-                  <p className="m-0 badge badge-muted-primary fw-light">12</p>
-                </div>
-                <div className="col">
-                  <p className="m-0 text-s">Applicants: 21</p>
-                </div>
-                <div className="col">
-                  <p className="m-0 text-xs">Posted</p>
-                  <p className="m-0 text-sm">1212</p>
-                </div>
-                <div className="col">
-                  <p className="m-0 badge badge-muted-warning fw-light">
-                    112 Days To Expire
-                  </p>
-                </div>
-              </div>
-            </div>
+                            <h6 className="m-0">RECENT USERS</h6>
+                            {
+                                user?.slice(0,6)?.map(data => {
+                                    return (
+
+                                        <div
+                                            // key={ind}
+                                            className="border rounded shadow-sm row align-items-center my-2 mx-0 py-2 job-row"
+                                        >
+                                            <div className="col d-flex align-items-center">
+                                                <div className="no-img-avatar-sm me-4">{data?.firstName?.slice(0, 1).toUpperCase()}{data?.lastName?.slice(0, 1).toUpperCase()}</div>
+                                                <div className="col">
+                                                    <p className="m-0 text-s">{data?.firstName}{data?.lastName}</p>
+                                                </div>
+                                            </div>
+
+                                            <div className="col">
+                                                <p className="m-0 text-xs">Username</p>
+                                                <p className="m-0 text-s"> {data?.username}</p>
+                                            </div>
+                                            <div className="col">
+                                                <p className="m-0 text-xs">Email</p>
+                                                <p className="m-0 text-sm">{data?.email}</p>
+                                            </div>
+                                            <div className="col">
+                                                <button onClick={() => {
+                                                    navigate('/add-user', { state: { data: data } })
+                                                }} className="btn badge"><i className="fas text-primary fa-pen"></i></button>
+                                                <button onClick={deleteUsder.bind(this, data._id)} className="btn badge"><i className="fas text-danger fa-trash"></i></button>
+                                            </div>
+                                        </div>
+                                    )
+                                })
+                            }
+
+                        </div>
             {/* );
                       })
                     } */}

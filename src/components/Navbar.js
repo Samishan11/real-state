@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
-import { UserContext } from '../context/userContext'
+import { UserContext } from '../context/userContext';
 
 const Navbar = () => {
     const [user, setUser] = useContext(UserContext)
@@ -15,7 +15,7 @@ const Navbar = () => {
                     <Link to={'/'} style={{ textDecoration: "none" }}>
                         <div className="logo d-flex">
                             <div className="title fs-5 mt-3">
-                                <p className='fw-bold'>Real<span className='text-primary'>State</span></p>
+                                <p className='fw-bold'>Real<span className='text-primary'>-Estate</span></p>
                             </div>
                         </div>
                     </Link>
@@ -37,7 +37,11 @@ const Navbar = () => {
                                     localStorage.getItem('token') ?
                                         <>
                                             <div className='d-flex'>
-                                                <Link className='mx-3' to={'/messaging'} style={{ textDecoration: "none" }}>
+                                               
+                                                <Link className='me-3' to={'/booking'} style={{ textDecoration: "none" }}>
+                                                    <div className='d-flex'>
+                                                        <i className='fas fa-bell rounded-circle bg-dark d-flex justify-content-center align-items-center text-light' style={{ width: '30px', height: "30px" }}><small style={{fontSize:'.7rem'}} className='text-light'>0</small></i>
+                                                    </div>
                                                 </Link>
                                                 <Link className='' to={'/dashboard'} style={{ textDecoration: "none" }}>
                                                     <div className='d-flex'>
