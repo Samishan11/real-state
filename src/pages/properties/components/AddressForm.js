@@ -25,6 +25,16 @@ const AddressForm = () => {
         listingData.address = { city, address, postal }
         setListingData(listingData)
         navigate("/list-property/features",{state:{data:data}})
+        if (listingData._id) {
+            navigate(`/list-property-summary/${listingData._id}/property-summary`)
+        } else {
+            axios.post("/list-property", listingData).then(function (res) {
+                console.log(res.data)
+                listingData._id = res.data.result._id
+                setListingData(listingData)
+                navigate(`/list-property-summary/${res.data.result._id}/property-summary`)
+            })
+        }
     }
 
     const back = () => {

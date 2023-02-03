@@ -160,7 +160,7 @@ const Home = () => {
                                 style={{ fontSize: "1rem" }}
                                 className="d-flex justify-content-between "
                               >
-                                <p className="text-s">NRP {val.price} {val.payment_type}</p>
+                                <p className="text-s">NRP {val.price}</p>
                                 <Link
                                   to={`/view-details/${val._id}`}
                                   style={{

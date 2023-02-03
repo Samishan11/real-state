@@ -36,10 +36,12 @@ const ListProperty = () => {
                             <>
                                 <TitleForm ></TitleForm>
                             </> :
+                            data !== "land" &&
                             section === "features" ?
                                 <>
                                     <FeaturesForm data={data}></FeaturesForm>
                                 </> :
+                                  data !== "land" &&
                                 section === "rules" ?
                                     <>
                                         <RulesForm></RulesForm>
