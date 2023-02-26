@@ -10,30 +10,35 @@ import { useMap } from 'react-leaflet/hooks'
 import Map from '../Map';
 
 const AddressForm = () => {
-    
+
     const data = useLocation()?.state?.data
     console.log(data)
 
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
-    const [listingData, setListingData] = useContext(ListingContext)
-    const [city, setCity] = useState(listingData?.address?.city)
-    const [address, setAddress] = useState(listingData?.address?.address)
-    const [postal, setPostal] = useState(listingData?.address?.postal)
+    const [listingData, setListingData] = useContext(ListingContext);
+    const [city, setCity] = useState(listingData?.address?.city);
+    const [address, setAddress] = useState(listingData?.address?.address);
+    const [postal, setPostal] = useState(listingData?.address?.postal);
+    const [area, setArea] = useState(listingData?.area);
 
+    console.log(listingData)
     const storeData = () => {
         listingData.address = { city, address, postal }
         setListingData(listingData)
-        navigate("/list-property/features",{state:{data:data}})
+        navigate("/list-property/features", { state: { data: data } })
         if (listingData._id) {
+            setListingData(listingData)
             navigate(`/list-property-summary/${listingData._id}/property-summary`)
         } else {
-            axios.post("/list-property", listingData).then(function (res) {
-                console.log(res.data)
-                listingData._id = res.data.result._id
-                setListingData(listingData)
-                navigate(`/list-property-summary/${res.data.result._id}/property-summary`)
-            })
+            if (listingData.category === 'land') {
+                axios.post("/list-property", listingData).then(function (res) {
+                    console.log(res.data)
+                    listingData._id = res.data.result._id
+                    setListingData(listingData)
+                    navigate(`/list-property-summary/${res.data.result._id}/property-summary`)
+                });
+            } 
         }
     }
 

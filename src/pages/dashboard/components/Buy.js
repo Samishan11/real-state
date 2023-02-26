@@ -5,11 +5,12 @@ import Navbar from '../../../components/Navbar'
 
 const Buy = () => {
 
-    const [bookings, setBookings] = useState() 
-    const [load, setLoad] = useState(false) 
+    const [bookings, setBookings] = useState()
+    const [load, setLoad] = useState(false)
     useEffect(() => {
         axios.get("/bookings").then(function (res) {
             setBookings(res.data)
+            console.log(res.data)
         })
     }, [load])
     return (
@@ -40,9 +41,7 @@ const Buy = () => {
                                                                                         Buy By
                                                                                     </p>
                                                                                     <div className='d-flex my-2'>
-                                                                                        <div>
-                                                                                            <img className='rounded-circle' src={`http://localhost:5000/${val.user.image}`} style={{ height: "8ch", width: "8ch", objectFit: "cover" }} alt="" />
-                                                                                        </div>
+
                                                                                         <div className='mx-2 my-auto'>
                                                                                             <p className='m-0 text-sm'>{val.user.username}</p>
                                                                                             <p className='m-0 text-sm'>{val.user.firstName} {val.user.lastName}</p>
@@ -70,26 +69,7 @@ const Buy = () => {
                                                                                                 <p className='m-0'>{val.room.single_bed > 0 ? <><i className='mt-2'><ion-icon name="bed-outline"></ion-icon></i> {val.room.single_bed} Single Bed</> : ""}</p>
                                                                                                 <p className='m-0'>{val.room.double_bed > 0 ? <><i className='mt-2'><ion-icon name="bed-outline"></ion-icon></i> {val.room.double_bed} Double Bed</> : ""}</p>
                                                                                                 <div className='d-flex flex-wrap my-2'>
-                                                                                                    <span className='me-3 d-flex'><i className="me-1" style={{ marginTop: "1.5px" }}><ion-icon name="resize-outline"></ion-icon></i> {val.room_size} sq.feet</span>
-                                                                                                    {
-                                                                                                        val.room.features.map((f, ind) => {
-                                                                                                            if (f === "TV") {
-                                                                                                                return (
-                                                                                                                    <span className='me-3 d-flex'><i className="me-1" style={{ marginTop: "1.5px" }}><ion-icon name="tv"></ion-icon></i> {f}</span>
-                                                                                                                )
-                                                                                                            }
-                                                                                                            if (f === "AC") {
-                                                                                                                return (
-                                                                                                                    <span className='me-3 d-flex'><i className="me-1" style={{ marginTop: "1.5px" }}><ion-icon name="thermometer-outline"></ion-icon></i> {f}</span>
-                                                                                                                )
-                                                                                                            }
-                                                                                                            if (f === "Wifi") {
-                                                                                                                return (
-                                                                                                                    <span className='me-3 d-flex'><i className="me-1" style={{ marginTop: "1.5px" }}><ion-icon name="wifi-outline"></ion-icon></i> {f}</span>
-                                                                                                                )
-                                                                                                            }
-                                                                                                        })
-                                                                                                    }
+
                                                                                                 </div>
                                                                                                 <span className='my-2'><i class="fa-solid fa-toilet me-1"></i>{val.room.bathroom.shared} Bathroom</span>
 
@@ -119,11 +99,7 @@ const Buy = () => {
                                                                                     </div>
                                                                                 </div>
                                                                                 <p className='p-0 text-sm'><i className='fa-solid fa-moon me-1'></i>{(new Date(val.booking_till).getDate() - new Date(val.booking_at).getDate())} Nights</p>
-                                                                                <div>
-                                                                                    <p className='text-sm m-0'>Guests</p>
-                                                                                    <small className='me-3'><i className='fa-solid fa-user me-1'></i>{val.people.adult} Adult</small>
-                                                                                    <small className='mx-3'><i className='fa-solid fa-child me-1'></i>{val.people.child} Child</small>
-                                                                                </div>
+
                                                                                 <hr />
                                                                                 <div className='d-flex flex-wrap'>
                                                                                     <p className='m-0 text-sm fw-bold'>Total Price</p>
@@ -141,7 +117,7 @@ const Buy = () => {
 
                                                                                 <div className="about-hostel-owner mb-4 mt-4">
                                                                                     <p className="text-sm text-secondary mb-1 fw-bold">
-                                                                                        Booked By
+                                                                                        Offered By
                                                                                     </p>
                                                                                     <div className='d-flex my-2'>
                                                                                         <div className='mx-2 my-auto'>
@@ -152,7 +128,9 @@ const Buy = () => {
                                                                                             </div>
                                                                                             {
                                                                                                 val?.accept &&
-                                                                                                <button className='btn btn-success btn-sm my-2 px-2'>Property Buy</button>
+                                                                                                <>
+                                                                                                    <button className='btn btn-success btn-sm my-2 px-2'>Property Own</button>
+                                                                                                </>
                                                                                             }
                                                                                         </div>
                                                                                     </div>
@@ -211,17 +189,18 @@ const Buy = () => {
                                                                                 }
                                                                                 <hr />
                                                                                 <div>
-                                                                                    <small className='text-sm'><i className='fa-solid fa-square-check me-1'></i>Booked</small>
-                                                                                    <small className='d-block text-sm'>{new Date(val.booked_on).toDateString()}</small>
+                                                                                    <small className='text-sm'><i className='fa-solid fa-square-check me-1'></i>own</small><br />
+                                                                                    <small className='text-sm fa-solid fa-calendar-days'><i className='me-1 text-sm'>
+                                                                                    </i>
+                                                                                        {new Date(val.booked_on)?.toDateString()}
+                                                                                    </small><br />
                                                                                 </div>
-                                                                               {
-                                                                                val?.property?.category !== "land" && 
-                                                                                <div>
-                                                                                <p className='text-sm m-0'>Guests</p>
-                                                                                <small className='me-3'><i className='fa-solid fa-user me-1'></i>{val.people.adult} Adult</small>
-                                                                                <small className='mx-3'><i className='fa-solid fa-child me-1'></i>{val.people.child} Child</small>
-                                                                            </div>
-                                                                               }
+                                                                                <hr />
+                                                                                <div className='d-flex flex-wrap'>
+                                                                                    <p className='m-0 text-sm fw-bold'>Meeting Date</p>
+                                                                                    <p className='m-0 text-sm ms-auto rounded'>
+                                                                                        <small className='text-sm fa-solid fa-calendar-days'><i className='me-1 text-sm'></i>{new Date(val?.appointment)?.toDateString()}</small><br /></p>
+                                                                                </div>
                                                                                 <hr />
                                                                                 <div className='d-flex flex-wrap'>
                                                                                     <p className='m-0 text-sm fw-bold'>Price</p>

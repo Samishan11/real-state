@@ -3,24 +3,17 @@ import React, { useContext, useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { NotificationContext } from '../context/Notificationcontext';
 const Navbar = () => {
-    const [book, setBook] = useContext(NotificationContext);
-    console.log(book)
-    var filterr;
-    if (book?.length > 0) {
-        const filter = book?.filter(data => {
-            if (!data?.accept) {
-                return filterr = data;
-            }
-        })
-    }
+    const { value, value1 } = useContext(NotificationContext);
+    const [notification, setNotification] = value1;
+    console.log(notification)
     const logout = () => {
         localStorage.clear()
         window.location.href = "/";
-    }
+    };
     
     return (
-        <div className=''>
-            <nav className="navbar navbar-expand-lg navbar-light border bg-light">
+        <div className='' style={{ marginBottom: '80px' }}>
+            <nav style={{ position: 'fixed', width: '100%', top: "0", marginBottom: '100px', zIndex: '99999' }} className="navbar navbar-expand-lg navbar-light border bg-light">
                 <div className='container col-10 mx-auto'>
                     <Link to={'/'} style={{ textDecoration: "none" }}>
                         <div className="logo d-flex">
@@ -35,10 +28,8 @@ const Navbar = () => {
                         <div className="navbar-nav mx-5">
                             <Link className="nav-item nav-link" to="/">Home</Link>
                             <Link className="nav-item nav-link" to="/properties-category">All Listing</Link>
-                            {
-                                localStorage.getItem('token') &&
-                                <Link className="nav-item nav-link" to="/list-property/category">List Property</Link>
-                            }
+                            <Link className="nav-item nav-link" to="/contact">Contact us</Link>
+
                         </div>
                         <hr />
                         <div className="navbar-nav ms-auto">
@@ -47,15 +38,18 @@ const Navbar = () => {
                                     localStorage.getItem('token') ?
                                         <>
                                             <div className='d-flex'>
-
-                                                <Link className='me-3' to={'/booking'} style={{ textDecoration: "none" }}>
+                                                {
+                                                    localStorage.getItem('token') &&
+                                                    <Link style={{ borderRadius: '20px', display: 'flex', justifyContent: 'center', alignItems: 'center', height: '35px', background: '#6699CC' }} className="nav-item me-3 btn mt-2 text-light nav-link" to="/list-property/category"><i class="fa-solid text-light fa-plus me-2"></i>List Property</Link>
+                                                }
+                                                <Link className='me-3 mt-2' to={'/booking'} style={{ textDecoration: "none" }}>
                                                     <div className='d-flex'>
                                                         <i className='fas fa-bell rounded-circle bg-dark d-flex justify-content-center align-items-center text-light position-relative' style={{ width: '30px', height: "30px", fontSize: '.9rem', paddingTop: '5px' }}>
-                                                            <small style={{ fontSize: '.6rem', width: '15px', height: '15px', top: '1px', right: '4px' }} className='text-light d-flex justify-content-center align-items-center bg-danger rounded-circle position-absolute'>{filterr?.length > 0 ? filterr?.length : '0'}</small>
+                                                            <small style={{ fontSize: '.6rem', width: '15px', height: '15px', top: '1px', right: '4px' }} className='text-light d-flex justify-content-center align-items-center bg-danger rounded-circle position-absolute'>{notification?.length > 0 ? notification?.length : '0'}</small>
                                                         </i>
                                                     </div>
                                                 </Link>
-                                                <Link className='' to={'/dashboard'} style={{ textDecoration: "none" }}>
+                                                <Link className='mt-2' to={'/dashboard'} style={{ textDecoration: "none" }}>
                                                     <div className='d-flex'>
                                                         <i className='fas fa-user rounded-circle bg-dark d-flex justify-content-center align-items-center text-light' style={{ width: '30px', height: "30px" }}></i>
                                                     </div>

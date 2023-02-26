@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const app = express();
 app.use(express.json());
@@ -6,6 +7,7 @@ require('./database/connect');
 const userRoutes = require('./routes/userRoutes');
 const businessRoute = require('./routes/businessRoute')
 const booingRoutes = require('./routes/bookingRoute')
+const commentingRoutes = require('./routes/commentingRoutes')
 
 
 const cors = require('cors');
@@ -21,6 +23,7 @@ app.use(
 app.use(userRoutes)
 app.use(businessRoute)
 app.use(booingRoutes)
+app.use(commentingRoutes)
 app.use(cors())
 
 // const server = require('./serverSetup')

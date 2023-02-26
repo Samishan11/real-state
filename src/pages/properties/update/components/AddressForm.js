@@ -24,7 +24,7 @@ const AddressForm = () => {
         navigate(`/list-property/${propertyId}/update/features`)
 
     }
-    
+
     const storeData = () => {
         // setLocation({city, address, location})
         // setListingData(location)

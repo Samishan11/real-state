@@ -24,12 +24,20 @@ const Login = () => {
     e.preventDefault();
     try {
       const res = await axios.post("/login", { username, password });
-      console.log(res.data);
+      console.log(res.data)
       if (res.data.success) {
-        toast.success(res.data.message, { position: toast.POSITION_TOP_RIGHT });
-        localStorage.setItem("token", res.data.token);
-        navigation('/')
-        
+        if (res.data.admin) {
+          toast.success(res.data.message, { position: toast.POSITION_TOP_RIGHT });
+          localStorage.setItem("token", res.data.token);
+          window.location ='/admin'
+          // navigation('/admin')
+        } else {
+          toast.success(res.data.message, { position: toast.POSITION_TOP_RIGHT });
+          localStorage.setItem("token", res.data.token);
+          window.location = '/'
+          // navigation('/')
+        }
+
       } else {
         toast.error(res.data.message, { position: toast.POSITION_TOP_RIGHT });
       }
@@ -63,16 +71,14 @@ const Login = () => {
       email: googleData.profileObj.email,
     };
 
-    console.log(userData);
 
     // backend url
     axios.post("/google-signin", userData).then((result) => {
-      if (result.data.success) {
+      if (result.data.admin) {
         localStorage.setItem("token", result.data.token);
-        // navigation("/profile");
-        window.location.href = "http://localhost:3000/dashboard";
+        window.location.href = "http://localhost:3000/admin";
       } else {
-        toast.error("Something's wrong.");
+        window.location.href = "http://localhost:3000/dashboard";
       }
     });
   };
@@ -180,7 +186,7 @@ const Login = () => {
                 {/* <span className="text-white fw-bold"> Login with Google</span> */}
               </GoogleLogin>
             </div>
-             
+
           </div>
         </div>
       </div>

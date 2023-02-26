@@ -1,6 +1,6 @@
-
+const Booking = require('../models/bookingModel');
 const e = require('cors');
-const Propertymodel = require('../models/propertyModel')
+const Propertymodel = require('../models/propertyModel');
 const rentings = require('../models/rentModel')
 const userModel = require("../models/userModel");
 exports.getProperty = async (req, res) => {
@@ -13,7 +13,7 @@ exports.getProperty = async (req, res) => {
         } else if (req.query.address) {
             data = await Propertymodel.find({ address: req.query.address })
         } else {
-            data = await Propertymodel.find().sort({'created_date': -1})
+            data = await Propertymodel.find().sort({ 'created_date': -1 })
         }
         res.json({ "data": data })
     } catch (error) {
@@ -38,7 +38,7 @@ exports.getSingleProperty = async (req, res) => {
 
 exports.myListings = async (req, res) => {
     const data = req.body
-    const result = await Propertymodel.find({ owner: req.userInfo._id}).populate("owner")
+    const result = await Propertymodel.find({ owner: req.userInfo._id }).populate("owner")
     res.json({ result })
 }
 exports.updateListing = async (req, res) => {
@@ -50,11 +50,12 @@ exports.updateListing = async (req, res) => {
     })
 }
 
-exports.deleteListing = async (req, res)=>{
-    Propertymodel.findOneAndDelete({_id:req.params.propertyId}, async function(err, docs){
-        if(!err){
+exports.deleteListing = async (req, res) => {
+    Propertymodel.findOneAndDelete({ _id: req.params.propertyId }, async function (err, docs) {
+        if (!err) {
             const result = await Propertymodel.find({ owner: req.userInfo._id, is_deleted: false }).populate("owner")
-            res.json({message: "Listing removed", success: true, result: result})
+            await Booking.findOneAndDelete({ property: req.params.propertyId });
+            res.json({ message: "Listing removed", success: true, result: result })
         }
     })
 }
@@ -83,7 +84,7 @@ exports.addPropertyImage = async (req, res) => {
         const result = Propertymodel.findByIdAndUpdate(property?._id, { images: images }, function (err, docs) {
             if (!err) {
                 res.json({ result: docs, message: "Image Uploaded", success: true })
-            }else{
+            } else {
                 console.log(err)
             }
         })
@@ -196,19 +197,19 @@ exports.filterProperty = async (req, res) => {
 }
 
 
-exports.getPropertyLocation = async(req, res)=>{
-   const property = await Propertymodel.find({"address.city": req.params.location}).populate('owner')
-   res.json(property)
+exports.getPropertyLocation = async (req, res) => {
+    const property = await Propertymodel.find({ "address.city": req.params.location }).populate('owner')
+    res.json(property)
 }
-exports.getPropertyCategory = async(req, res)=>{
+exports.getPropertyCategory = async (req, res) => {
     console.log(req.params.category)
-   const properties = await Propertymodel.find().populate('owner')
-   res.json({data:properties, success: true})
+    const properties = await Propertymodel.find().populate('owner')
+    res.json({ data: properties, success: true })
 }
-exports.getPropertyCategoryWise = async(req, res)=>{
+exports.getPropertyCategoryWise = async (req, res) => {
     console.log(req.params.category)
-   const properties = await Propertymodel.find({category: req.params.category}).populate('owner')
-   res.json({data:properties, success: true})
+    const properties = await Propertymodel.find({ category: req.params.category }).populate('owner')
+    res.json({ data: properties, success: true })
 }
 
 // // comment on property 

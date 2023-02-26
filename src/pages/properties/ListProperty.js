@@ -18,7 +18,7 @@ const ListProperty = () => {
     const data = useLocation()?.state?.data
     console.log(data !== "land")
     console.log(data)
-    // const [listingData, setListingData] = useContext(ListingContext)
+    const [listingData, setListingData] = useContext(ListingContext)
 
     return (
         <>
@@ -36,13 +36,13 @@ const ListProperty = () => {
                             <>
                                 <TitleForm ></TitleForm>
                             </> :
-                            data !== "land" &&
-                            section === "features" ?
+                          
+                                section === "features" ?
                                 <>
                                     <FeaturesForm data={data}></FeaturesForm>
                                 </> :
-                                  data !== "land" &&
-                                section === "rules" ?
+                              
+                                    section === "rules" ?
                                     <>
                                         <RulesForm></RulesForm>
                                     </> :

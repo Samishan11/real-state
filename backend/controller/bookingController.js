@@ -1,5 +1,7 @@
 const Booking = require('../models/bookingModel');
-
+const Property = require("../models/propertyModel")
+const User = require("../models/userModel")
+const { mail } = require('../utils/mail')
 exports.Booking = async (req, res) => {
     try {
         const isExist = await Booking.findOne({ user: req.body.user, property: req.body.property });
@@ -13,13 +15,24 @@ exports.Booking = async (req, res) => {
     } catch (error) {
         res.json(error);
     }
-}
+};
 
 exports.Update_Booking = async (req, res) => {
     try {
+        console.log(req.body)
         const isExist = await Booking.findOne({ property: req.params.id });
-        isExist.accept = req.body.accept
+        console.log(isExist.accept)
+        // const property = await Property.findOne({ _id: req.params.id });
+        const user = await User.findOne({ _id: isExist.user });
+        isExist.accept = true
+        isExist.appointment = req.body.appointment
         isExist.save()
+        mail().sendMail({
+            from: "joker.shan99@gmail.com",
+            to: user.email,
+            subject: "Real-Estate Meeting Shedule.",
+            html: `<p style="text-align:center; font-size:16px;"> The property you had been offered has been accepted and meeting has been shedule on ${new Date(req.body.appointment).toDateString()} </p>`
+        })
         res.json({ message: "Verified" });
     } catch (error) {
         res.json(error);
@@ -59,8 +72,8 @@ exports.mybooking = async (req, res) => {
 
 exports.mybookingdone = async (req, res) => {
     const bookings = await Booking.find({ user: req.userInfo._id }).populate('property').populate('user');
-    const filter = bookings.filter((data)=>{
-        if(data.accept){
+    const filter = bookings.filter((data) => {
+        if (data.accept) {
             return data;
         }
     })
@@ -69,3 +82,5 @@ exports.mybookingdone = async (req, res) => {
     res.json(filter);
 }
 
+
+// 

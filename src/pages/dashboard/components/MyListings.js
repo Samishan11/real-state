@@ -1,18 +1,52 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import "../dashboard.css";
 import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../../../components/Navbar";
 import { UserContext } from "../../../context/userContext";
 import axios from "axios";
-
+import { toast } from "react-toastify";
 const MyListings = () => {
 
-    const navigate = useNavigate()
-    const [listings, setListings] = useState()
+    const navigate = useNavigate();
+    const [listings, setListings] = useState();
+    const ref = useRef(null);
+    const [accept, setAccept] = useState(true);
+    const [load, setLoad] = useState(false);
 
-    const deleteListing = async (propertyId)=>{
-        const res = await axios.put('/delete-listing/'+propertyId)
-        if(res.data.success){
+    // 
+    const handleClick = (id) => {
+        axios
+            .put("/update-listing/" + id, {
+                available: false
+            })
+            .then((data) => {
+               
+                load ? setLoad(false) : setLoad(true);
+            })
+            .catch((e) => {
+                toast.warn("Someting went wrong!!!");
+            });
+    };
+    const handleClick1 = (id) => {
+        axios
+            .put("/update-listing/" + id, {
+                available: true
+            })
+            .then((data) => {
+                console.log(data)
+                load ? setLoad(false) : setLoad(true);
+            })
+            .catch((e) => {
+                toast.warn("Someting went wrong!!!");
+            });
+    };
+
+
+
+
+    const deleteListing = async (propertyId) => {
+        const res = await axios.put('/delete-listing/' + propertyId)
+        if (res.data.success) {
             setListings(res.data.result)
         }
     }
@@ -22,7 +56,8 @@ const MyListings = () => {
             console.log(res)
             setListings(res.data.result)
         })
-    }, [])
+    }, [load])
+
 
 
     return (
@@ -90,13 +125,13 @@ const MyListings = () => {
                                                                         <li>{val}</li>
                                                                     </span>
                                                                 );
-                                                            })}
+                                                            })
+                                                            }
                                                         </div>
                                                         <div className="d-flex justify-content-start align-items-center">
-                                                           
                                                             <div className="ms-2 my-3">
                                                                 <p className="text text-secondary mb-0 text-xs w700">
-                                                                    Hosted By:
+                                                                    Post By:
                                                                 </p>
                                                                 <small className="d-block mt-0 text-xs">
                                                                     {val?.owner?.firstName} {val?.owner?.lastName}
@@ -107,7 +142,7 @@ const MyListings = () => {
                                                 </div>
                                                 <div className="col-md-3">
                                                     <div className="p-1 text-md-end text-start">
-                                                        
+
                                                         <div className="mb-3">
                                                             <p
                                                                 className="text text-secondary mb-0"
@@ -127,6 +162,13 @@ const MyListings = () => {
                                                                     Includes taxes and charges
                                                                 </p>
                                                             </div>
+                                                        </div>
+                                                        <div className="d-flex justify-content-start align-items-center mx-2 py-0">
+                                                         {
+                                                            val.available ?
+                                                            <button onClick={()=>handleClick(val._id)} className="btn btn-success btn-sm me-2">Mark as avaliable</button> :
+                                                            <button onClick={()=>handleClick1(val._id)} className="btn btn-danger btn-sm">Mark as sold</button>
+                                                         }
                                                         </div>
                                                         <div className="justify-content-start align-items-center py-0">
                                                             <Link to={`/list-property-summary/${val._id}/property-summary`} className="btn btn-sm btn-primary px-3">

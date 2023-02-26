@@ -31,7 +31,7 @@ const OwnersCard = (props) => {
             <div className="p-1" style={{ background: "#F9F9F9", position: "sticky", top: "0" }}>
                 <div className='mx-2'>
                     <p className="text text-secondary mb-0 fs-6 fw-bold">
-                        NPR {property.price} <span className="fw-normal">{property.payment_type === "monthly" ? "Per Month" : property.payment_type === "night" ? "Per Night" : "On Sale"}</span>
+                        NPR {property.price}
                     </p>
                     <hr className="my-2" />
                     <div>

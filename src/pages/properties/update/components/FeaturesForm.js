@@ -64,7 +64,7 @@ const FeaturesForm = () => {
             setFeatures(features)
         }
     }
-    
+
     return (
         <>
             <div className='container mx-auto my-4 col-9 mx-auto'>
@@ -96,82 +96,158 @@ const FeaturesForm = () => {
                                 <div className='box border rounded px-3 py-4'>
                                     <p className='text-md fw-bold'>What features does your property have?</p>
                                     {
-                                        features.length>0?
-                                        <div className='form-group my-3'>
-                                        <label htmlFor="" className='my-2'>General Features</label>
-                                        <div>
-                                            <div className="form-check form-check-inline">
+                                        features.length > 0 ?
+                                            <div className='form-group my-3'>
+                                                <label htmlFor="" className='my-2'>General Features</label>
+                                                <div className='row mb-2'>
+                                                    <div className="form-group col-md-12">
+                                                        <label className="form-control-label text-sm" htmlFor="room">
+                                                            Kitchne
+                                                        </label>
+                                                        <br />
+                                                        <input
+                                                            defaultValue={features?.indexOf('Kitchen') ? parseInt(features[0].slice(-1)) : 0}
+                                                            className="form-control-sm"
+                                                            id="kitchen"
+                                                            type="number"
+                                                            onChange={e => setFeatures((data => [...data, `Kitchen ${e.target.value}`]))} />
 
+                                                    </div>
+                                                    <div className="form-group col-md-12">
+                                                        <label className="form-control-label text-sm" htmlFor="room">
+                                                            Bed Room
+                                                        </label>
+                                                        <br />
+                                                        <input
+                                                            defaultValue={features?.indexOf('Bed Room') ? parseInt(features[0].slice(-1)) : 0}
+                                                            className="form-control-sm"
+                                                            id="bedroom"
+                                                            type="number"
+                                                            onChange={e => setFeatures((data => [...data, `Bed Room ${e.target.value}`]))} />
 
-                                                <input
-                                                    className="form-check-input"
-                                                    defaultChecked={features?.indexOf('Internet') === -1 ? false : true}
-                                                    id="internet"
-                                                    type="checkbox"
-                                                    onChange={addItem.bind(this, "internet", "Internet")}
-                                                />
+                                                    </div>
+                                                    <div className="form-group col-md-12">
+                                                        <label className="form-control-label text-sm" htmlFor="room">
+                                                            Bathroom Room
+                                                        </label>
+                                                        <br />
+                                                        <input
+                                                            defaultValue={features?.indexOf('Bath Room') ? parseInt(features[0].slice(-1)) : 0}
+                                                            className="form-control-sm"
+                                                            id="bathroom"
+                                                            type="number"
+                                                            onChange={e => setFeatures((data => [...data, `Bath Room ${e.target.value}`]))} />
 
-                                                <label
-                                                    className="form-check-label text-sm"
-                                                    htmlFor="internet"
-                                                >
-                                                    Internet
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <div className="form-check form-check-inline">
-                                                <input
-                                                    className="form-check-input"
-                                                    type="checkbox"
-                                                    defaultChecked={features?.indexOf('TV') === -1 ? false : true}
-                                                    id="tv"
-                                                    onChange={addItem.bind(this, "tv", "TV")}
-                                                />
-                                                <label
-                                                    className="form-check-label text-sm"
-                                                    htmlFor="tv"
-                                                >
-                                                    TV
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <div className="form-check form-check-inline">
-                                                <input
-                                                    className="form-check-input"
-                                                    type="checkbox"
-                                                    defaultChecked={features?.indexOf('Breakfast') === -1 ? false : true}
-                                                    id="breakfast"
-                                                    onChange={addItem.bind(this, 'breakfast', "Breakfast")}
-                                                />
-                                                <label
-                                                    className="form-check-label text-sm"
-                                                    htmlFor="breakfast"
-                                                >
-                                                    Breakfast
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <div className="form-check form-check-inline">
-                                                <input
-                                                    className="form-check-input"
-                                                    type="checkbox"
-                                                    defaultChecked={features?.indexOf('Parking') === -1 ? false : true}
-                                                    id="parking"
-                                                    onChange={addItem.bind(this, 'parking', "Parking")}
-                                                />
-                                                <label
-                                                    className="form-check-label text-sm"
-                                                    htmlFor="parking"
-                                                >
-                                                    Parking
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>:
-                                    <></>
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <div>
+                                                        <div className="form-check form-check-inline">
+                                                            <input
+                                                                className="form-check-input"
+                                                                defaultChecked={features?.indexOf('CCTV') === -1 ? false : true}
+                                                                id="cctv"
+                                                                type="checkbox"
+                                                                onChange={addItem.bind(this, "cctv", "CCTV")}
+                                                            />
+
+                                                            <label
+                                                                className="form-check-label text-sm"
+                                                                htmlFor="cctv"
+                                                            >
+                                                                CCTV
+                                                            </label>
+                                                        </div>
+                                                    </div>
+
+                                                    <div>
+                                                        <div className="form-check form-check-inline">
+                                                            <input
+                                                                className="form-check-input"
+                                                                type="checkbox"
+                                                                defaultChecked={features?.indexOf('Drinking') === -1 ? false : true}
+                                                                id="drinking"
+                                                                onChange={addItem.bind(this, 'drinking', "Drinking")}
+                                                            />
+                                                            <label
+                                                                className="form-check-label text-sm"
+                                                                htmlFor="drinking"
+                                                            >
+                                                                Drinking Water
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div>
+                                                        <div className="form-check form-check-inline">
+                                                            <input
+                                                                className="form-check-input"
+                                                                type="checkbox"
+                                                                defaultChecked={features?.indexOf('Lift') === -1 ? false : true}
+                                                                id="lift"
+                                                                onChange={addItem.bind(this, 'lift', "Lift")}
+                                                            />
+                                                            <label
+                                                                className="form-check-label text-sm"
+                                                                htmlFor="lift"
+                                                            >
+                                                                Lift
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div>
+                                                        <div className="form-check form-check-inline">
+                                                            <input
+                                                                className="form-check-input"
+                                                                type="checkbox"
+                                                                defaultChecked={features?.indexOf('GYM') === -1 ? false : true}
+                                                                id="gym"
+                                                                onChange={addItem.bind(this, 'gym', "GYM")}
+                                                            />
+                                                            <label
+                                                                className="form-check-label text-sm"
+                                                                htmlFor="gym"
+                                                            >
+                                                                Garden
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div>
+                                                        <div className="form-check form-check-inline">
+                                                            <input
+                                                                className="form-check-input"
+                                                                type="checkbox"
+                                                                defaultChecked={features?.indexOf('Internet') === -1 ? false : true}
+                                                                id="internet"
+                                                                onChange={addItem.bind(this, 'internet', "Internet")}
+                                                            />
+                                                            <label
+                                                                className="form-check-label text-sm"
+                                                                htmlFor="internet"
+                                                            >
+                                                                Internet
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div>
+                                                        <div className="form-check form-check-inline">
+                                                            <input
+                                                                className="form-check-input"
+                                                                type="checkbox"
+                                                                defaultChecked={features?.indexOf('Swimming') === -1 ? false : true}
+                                                                id="swimming"
+                                                                onChange={addItem.bind(this, 'swimming', "Swimming")}
+                                                            />
+                                                            <label
+                                                                className="form-check-label text-sm"
+                                                                htmlFor="swimming"
+                                                            >
+                                                                Swimming Pool
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div> :
+                                            <></>
                                     }
                                 </div>
 

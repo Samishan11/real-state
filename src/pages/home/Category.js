@@ -159,7 +159,7 @@ const Category = (props) => {
 
 
 
-                    
+
                     <hr className="my-2 bg-dark" />
                     <div className="py-2 px-3">
                       <p className="text text-secondary text-s w700 mb-2">
@@ -269,7 +269,13 @@ const Category = (props) => {
                                   </div>
                                   <div className="d-flex justify-content-start align-items-center">
 
-                                    <div className="ms-2 my-3">
+                                    <div className="ms-2 my-1">
+                                      {
+                                        result?.available ?
+                                          <button className='btn text-sm text-light my-2 btn-sm' style={{ background: "#42EA5A" }}>Available</button>
+                                          :
+                                          <button className='btn text-sm text-light btn-sm bg-danger my-2'>Unavailable</button>
+                                      }
                                       <p className="text text-secondary mb-0 text-xs w700">
                                         Hosted By:
                                       </p>
@@ -282,7 +288,7 @@ const Category = (props) => {
                               </div>
                               <div className="col-md-3">
                                 <div className="p-1 text-md-end text-start">
-                                
+
                                   <div className="mb-3">
                                     <p
                                       className="text text-secondary mb-0"
@@ -294,7 +300,7 @@ const Category = (props) => {
                                       <p
                                         className="text text-secondary mb-0 fs-6 fw-bold"
                                       >
-                                        NPR {result?.price} <small>{result?.payment_type === "on-sale" ? "" : result?.payment_type === "monthly" ? "per month" : "per night"}</small>
+                                        NPR {result?.price}
                                       </p>
                                       {
                                         result.category === "hotel" ?
@@ -308,8 +314,8 @@ const Category = (props) => {
                                     </div>
                                   </div>
                                   <div className="d-flex justify-content-md-end justify-content-start align-items-center py-0">
-                                    <Link to={`/view-details/${result._id}`} className="btn btn-primary px-3">
-                                      See Availability
+                                    <Link to={`/view-details/${result._id}`} className="btn btn-sm btn-primary px-3">
+                                      View
                                     </Link>
                                   </div>
                                 </div>
@@ -381,7 +387,13 @@ const Category = (props) => {
                                 </div>
                                 <div className="d-flex justify-content-start align-items-center">
 
-                                  <div className="ms-2 my-3">
+                                  <div className="ms-2 my-1">
+                                    {
+                                      result?.available ?
+                                        <button className='btn text-sm text-light btn-sm my-2' style={{ background: "#42EA5A" }}>Available</button>
+                                        :
+                                        <button className='btn text-sm text-light btn-sm bg-danger my-2'>Unavailable</button>
+                                    }
                                     <p className="text text-secondary mb-0 text-xs w700">
                                       Hosted By:
                                     </p>
@@ -394,7 +406,7 @@ const Category = (props) => {
                             </div>
                             <div className="col-md-3">
                               <div className="p-1 text-md-end text-start">
-                                
+
                                 <div className="mb-3">
                                   <p
                                     className="text text-secondary mb-0"
@@ -406,7 +418,7 @@ const Category = (props) => {
                                     <p
                                       className="text text-secondary mb-0 fs-6 fw-bold"
                                     >
-                                      Price: NRP {result?.price} 
+                                     NRP {result?.price}
                                     </p>
                                     {
                                       result.category === "hotel" ?
@@ -420,8 +432,8 @@ const Category = (props) => {
                                   </div>
                                 </div>
                                 <div className="d-flex justify-content-md-end justify-content-start align-items-center py-0">
-                                  <Link to={`/view-details/${result._id}`} className="btn btn-primary px-3">
-                                    See Availability
+                                  <Link to={`/view-details/${result._id}`} className="btn btn-sm  btn-primary px-3">
+                                    View
                                   </Link>
                                 </div>
                               </div>

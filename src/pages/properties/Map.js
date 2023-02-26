@@ -23,7 +23,7 @@ function LocationMarker(props) {
     // console.log(props.position)
 
     useEffect(()=>{
-        console.log(props.property)
+        // console.log(props.property)
     },[])
     const map = useMapEvents({
         click(e) {

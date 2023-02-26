@@ -19,6 +19,9 @@ const booking = mongoose.model("Booking", {
     booking_at: {
         type: Date,
     },
+    appointment: {
+        type: String,
+    },
     booking_till: {
         type: Date,
     },

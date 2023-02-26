@@ -33,8 +33,8 @@ import Buy from "./pages/dashboard/components/Buy";
 import AdminDash from "./components/admin/AdminDash";
 import Manageuser from "./components/admin/Manageuser";
 import Adduser from "./components/admin/Adduser";
-import { RoomBookProvider } from "./context/BookRoomContext";
 import { NotificationProvider } from "./context/Notificationcontext";
+import Contact from "./pages/Contact";
 function App() {
   const ProtectedAdmin = () => {
     function parseJwt(token) {
@@ -66,6 +66,7 @@ function App() {
               <Route exact path="/register" element={<Register></Register>}></Route>
               <Route exact path="/login" element={<Login></Login>}></Route>
               <Route exact path="/dashboard" element={<Dashboard></Dashboard>}></Route>
+              <Route exact path="/contact" element={<Contact></Contact>}></Route>
 
 
               <Route element={<ProtectedAdmin></ProtectedAdmin>}>

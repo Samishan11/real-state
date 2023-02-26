@@ -3,9 +3,8 @@ const property = require("../models/propertyModel");
 const bcryptjs = require("bcryptjs");
 const jsonwebtoken = require("jsonwebtoken");
 const otpGenerator = require("otp-generator");
-const nodeMailer = require("nodemailer");
-
-
+const mail = require('../utils/mail')
+const nodeMailer = require("nodemailer")
 const fetch = (...args) =>
   import("node-fetch").then(({ default: fetch }) => fetch(...args)); // const UserModel = require("../models/userModel");
 
@@ -38,7 +37,8 @@ exports.loginUser = async (req, res) => {
       // res.json({ 'token': token, verified: user.verified })
       res.json({
         token: token,
-        verified: user.verified,
+        verified: userData.verified,
+        admin: userData.admin,
         message: "Successfully Logged In!",
         success: true,
       });
@@ -168,10 +168,10 @@ exports.sendEmail = async (req, res) => {
     const transporter = nodeMailer.createTransport({
       // host: "smtp.mailtrap.io",
       host: "smtp.gmail.com",
-      port: 465,
+      port: 597,
       auth: {
-        user: "baudelmanoram123@gmail.com",
-        pass: "lcrolqjtefiisrmh",
+        user: process.env.HOST,
+        pass: process.env.PASS,
       },
     });
 
@@ -237,9 +237,8 @@ exports.googleLogin = async (req, res) => {
       }
     });
   } else {
-
     const token = jsonwebtoken.sign({ userId: checkuser._id, username: checkuser.username, user: checkuser, image: checkuser.image, email: checkuser.email }, "anysecrectkey");
-    res.json({ message: "Login Success", token: token, success: true });
+    res.json({ message: "Login Success", token: token, success: true , admin:checkuser.admin });
   }
 };
 
@@ -276,16 +275,18 @@ exports.rateUser = async (req, res) => {
 }
 
 exports.resetPasswordLink = async (req, res) => {
+  console.log(process.env.HOST)
+  console.log(process.env.PASS)
   const OTP = otpGenerator.generate(10, { upperCase: false, specialChars: false });
   const transporter = nodeMailer.createTransport({
-    // host: "smtp.mailtrap.io",
-    host: "smtp.gmail.com",
-    port: 465,
+    host: 'smtp.gmail.com',
+    port: 587,
+    secure: false,
     auth: {
-      user: "baudelmanoram123@gmail.com",
-      pass: "lcrolqjtefiisrmh"
+        user: process.env.HOST,
+        pass: process.env.PASS
     }
-  });
+});
   const user_ = await user.findOne({ email: req.body.email })
   if (user_) {
     const passwordToken = await user_.getResetPasswordToken(user_._id)

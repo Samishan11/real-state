@@ -7,7 +7,17 @@ const Sidebar = (props) => {
     }, [props.tab]);
     return (
         <div className="col-md-4 m-0 p-0 position-absolute" style={{ width: "15em", height: '100vh', backgroundColor: '#4E5180', left: 0 }}>
-            <div className="nav_link text-align">
+            <div className="nav_link  text-align">
+
+                <div className="links mx-auto active_link py-1" >
+                    <Link to={'/'} className="mx-auto" style={{ textDecoration: "none" }}>
+                        <div className="logo d-flex">
+                            <div className="title fs-5 mt-3">
+                                <p className='fw-bold'>Real<span className='text-primary'>-Estate</span></p>
+                            </div>
+                        </div>
+                    </Link>
+                </div>
                 <div className="links mx-auto active_link  my-3 py-1" >
                     <Link id='admin' to='/admin' className='text-light' style={{ cursor: 'pointer', textDecoration: 'none' }}>Dashboard</Link>
                 </div>

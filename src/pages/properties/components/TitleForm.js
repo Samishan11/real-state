@@ -6,28 +6,37 @@ const TitleForm = () => {
 
     const navigate = useNavigate()
     const data = useLocation()?.state?.data
-    console.log(data)
     const [listingData, setListingData] = useContext(ListingContext)
     const [title, setTitle] = useState(listingData?.title)
     const [price, setPrice] = useState(listingData?.price)
+    const [area, setArea] = useState(listingData?.area)
+    const [desc, setDesc] = useState(listingData?.desc)
+    const [property_dirction, setDoordirection] = useState(listingData?.property_dirction)
     const [paymentType, setPaymentType] = useState("per month")
 
     const back = () => {
         listingData.title = title
         listingData.price = price
+        listingData.area = area
+        listingData.desc = desc
         listingData.payment_type = paymentType
+        listingData.property_dirction = property_dirction
+        listingData.category = data
         setListingData(listingData)
-        console.log(listingData)
-        navigate("/list-property/category", { state: { data: listingData.category } })
+        navigate("/list-property/category", { state: { data: listingData } })
     }
 
     const storeData = () => {
         listingData.title = title
         listingData.price = price
+        listingData.area = area
         listingData.payment_type = paymentType
+        listingData.property_dirction = property_dirction
+        listingData.category = data
+        listingData.desc = desc
         setListingData(listingData)
         console.log(listingData)
-        navigate("/list-property/address", { state: { data: listingData.category } })
+        navigate("/list-property/address", { state: { data: listingData } })
     }
 
     return (
@@ -67,17 +76,42 @@ const TitleForm = () => {
                                         <small className='text-xs'>This will appear as a title of your property while searching place.</small>
                                     </div>
                                     <hr />
-                                    <p className='text-md fw-bold'>Pricing</p>
+
+                                    <>
+                                        <p className='text-md fw-bold'>Area In Sq. Feet</p>
+                                        <div className='form-group'>
+                                            <label htmlFor="" className='text-sm'>Area</label>
+                                            <input type="text" className='form-control' onChange={(e) => { setArea(e.target.value) }} value={area} />
+
+                                        </div>
+                                    </>
+
+                                    {
+                                        data === "building" &&
+                                        <div className='pt-3'>
+                                            <p className='text-md fw-bold'>Main Door Direction</p>
+                                            <div className='form-group'>
+                                                <label htmlFor="" className='text-sm'>Direction</label>
+                                                <select onChange={(e) => { setDoordirection(e.target.value) }} className='form-select form-control text-sm' name="" id="">
+                                                    <option value="North">North</option>
+                                                    <option value="South">South</option>
+                                                    <option value="East">East</option>
+                                                    <option value="West">West</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    }
+                                    <p className='text-md fw-bold mt-3'>Pricing</p>
                                     <div className='form-group'>
                                         <label htmlFor="" className='text-sm'>Price</label>
                                         <input type="text" className='form-control' onChange={(e) => { setPrice(e.target.value) }} value={price} />
-                                        {/* {
-                                            listingData.category === "room" || "hostel" || "apartment" ?
-                                                <small className='text-xs'>You are listing a <b>{listingData.category}</b> type property and the price will be shown as <b>per month.</b></small> :
-                                                listingData.category === "hotel" ?
-                                                    <small className='text-xs'>You are listing a <b>{listingData.category}</b> type property and the price will be shown as <b>per night.</b></small> :
-                                                    <></>
-                                        } */}
+
+                                    </div>
+                                    <p className='text-md fw-bold mt-3'>Description</p>
+                                    <div className='form-group'>
+                                        <label htmlFor="" className='text-sm'>Description</label>
+                                        <textarea type="text" className='form-control' onChange={(e) => { setDesc(e.target.value) }} value={desc} />
+
                                     </div>
                                     <div className='form-group my-3'>
                                         <label htmlFor="" className='text-sm'>Payment Type</label>

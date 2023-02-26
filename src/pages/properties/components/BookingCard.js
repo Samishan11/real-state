@@ -41,7 +41,7 @@ const BookingCard = (props) => {
                 toast.warning(res.data.message, { position: toast.POSITION_TOP_RIGHT });
                 document.getElementById('checkout-form').reset()
             } else {
-                toast.success("Property has been booked", { position: toast.POSITION_TOP_RIGHT });
+                toast.success("Property has been offered.", { position: toast.POSITION_TOP_RIGHT });
                 document.getElementById('checkout-form').reset()
             }
         }).catch(err => {
@@ -137,14 +137,10 @@ const BookingCard = (props) => {
             <div className="p-1" style={{ background: "#F9F9F9", position: "sticky", top: "0" }}>
                 <div className="mx-2">
                     <p className="text text-secondary mb-0 fs-6 fw-bold">
-                        NPR {property.price} <span className="fw-normal">/ {property.payment_type}</span>
+                        NPR {property.price}
                     </p>
-                    <small className="bg-success text-xs m-0 text-light p-1 rounded px-2">
-                        10% Discount
-                    </small>
                     <hr className="my-2" />
                     <form id='checkout-form'>
-
                         {
                             !property?.category === 'land' || !property.category === 'building' &&
                             <>

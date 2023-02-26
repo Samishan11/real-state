@@ -1,20 +1,12 @@
-import axios, { useState, useEffect } from 'axios';
-import { createContext } from 'react';
+import { useState, createContext } from 'react';
 
 export const BookRoomContext = createContext();
 
 export const RoomBookProvider = (props) => {
-    const [book, setBook] = useState();
-    
-    useEffect(() => {
-        axios.get("/my-booking").then(function (res) {
-            console.log(res.data)
-            setBook(res.data)
-        })
-    }, [])
+    const [room, setRoom] = useState();
 
     return (
-        <BookRoomContext.Provider value={[book, setBook]}>
+        <BookRoomContext.Provider value={[room, setRoom]}>
             {props.children}
         </BookRoomContext.Provider>
     )

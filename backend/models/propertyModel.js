@@ -3,6 +3,9 @@ const mongoose = require('mongoose')
 const property = mongoose.model("Property", {
     owner: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
     title: { type: String, required: true },
+    property_dirction: { type: String, required: true },
+    area: { type: String, required: false },
+    desc: { type: String, required: false },
     address: { type: {}, require: true },
     lat: { type: String },
     lng: { type: String },
@@ -15,12 +18,12 @@ const property = mongoose.model("Property", {
     top_features: { type: [] },
     rules: { type: {} },
     images: { type: [] },
-    total_ratings: {type: Number, default: 0},
-    rating: {type: Number, default: 0},
-    available: {type: Boolean, default: true},
-    reports: {type: Number, default: 0},
-    created_date: {type: Date, default: new Date()},
-    is_deleted: {type: Boolean, default: false}
+    total_ratings: { type: Number, default: 0 },
+    rating: { type: Number, default: 0 },
+    available: { type: Boolean, default: true },
+    reports: { type: Number, default: 0 },
+    created_date: { type: Date, default: new Date() },
+    is_deleted: { type: Boolean, default: false }
 })
 
 module.exports = property;

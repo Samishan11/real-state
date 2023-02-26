@@ -27,14 +27,14 @@ const CategorySelection = ({data}) => {
                                     <div className='row'>
                                         <div className=' col-md-3'>
                                             <div className='form-group'>
-                                                <img style={{ width: "20ch", height: "20ch", objectFit: "cover" }} src="/images/categories/hostel_logo.jpg" alt="" />
+                                                <img style={{ width: "20ch", height: "20ch", objectFit: "cover" }} src="/images/categories/home_logo.jpg" alt="" />
                                                 <p style={{ fontWeight: "600" }}>Building</p>
                                             </div>
                                             <input id="building" type="radio" className='' onChange={(e) => { storeData(e.target.value) }} name="category" value="building" />
                                         </div>
                                         <div className=' col-md-3'>
                                             <div className='form-group'>
-                                                <img style={{ width: "20ch", height: "20ch", objectFit: "cover" }} src="/images/categories/hostel_logo.jpg" alt="" />
+                                                <img style={{ width: "20ch", height: "20ch", objectFit: "cover" }} src="/images/categories/land.jpg" alt="" />
                                                 <p style={{ fontWeight: "600" }}>Land</p>
                                             </div>
                                             <input id="land" type="radio" className='' onChange={(e) => { storeData(e.target.value) }} name="category" value="land" />
