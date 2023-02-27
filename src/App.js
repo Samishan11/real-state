@@ -35,6 +35,8 @@ import Manageuser from "./components/admin/Manageuser";
 import Adduser from "./components/admin/Adduser";
 import { NotificationProvider } from "./context/Notificationcontext";
 import Contact from "./pages/Contact";
+import Contactt from "./components/admin/Contact";
+import { CompareProvider } from "./context/Compare";
 function App() {
   const ProtectedAdmin = () => {
     function parseJwt(token) {
@@ -67,6 +69,7 @@ function App() {
               <Route exact path="/login" element={<Login></Login>}></Route>
               <Route exact path="/dashboard" element={<Dashboard></Dashboard>}></Route>
               <Route exact path="/contact" element={<Contact></Contact>}></Route>
+              <Route exact path="/view-contact" element={<Contactt></Contactt>}></Route>
 
 
               <Route element={<ProtectedAdmin></ProtectedAdmin>}>
@@ -94,7 +97,7 @@ function App() {
               <Route path="/reset-password/:token" element={<ResetPassword></ResetPassword>}></Route>
               <Route path="/map" element={<Map></Map>}></Route>
 
-              <Route path="/properties-category" element={<Category></Category>}></Route>
+              <Route path="/properties-category" element={<CompareProvider><Category></Category></CompareProvider>}></Route>
             </Routes>
           </Router>
         </NotificationProvider>

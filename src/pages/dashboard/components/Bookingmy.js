@@ -18,7 +18,7 @@ const Bookingmy = () => {
       })
       .then((data) => {
         load ? setLoad(false) : setLoad(true);
-        toast.success("Property Has Been Sold.");
+        toast.success("Appointment has been sheduled.");
       })
       .catch((e) => {
         toast.warn("Someting went wrong!!!");

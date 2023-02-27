@@ -1,6 +1,7 @@
+const { request } = require("express");
 const comment = require("../models/commentModel");
-const property = require("../models/propertyModel")
-
+const property = require("../models/propertyModel");
+const contactModal = require('../models/contact');
 exports.postReview = async (req, res) => {
     console.log('dsafsda')
     const property_ = await property.findById(req.params.propertyId);
@@ -60,5 +61,22 @@ exports.likeComment = async (req, res) => {
             }
             res.json({ likes: likes - 1 })
         })
+    }
+}
+
+exports.contact = async (req, res) => {
+    try {
+        var contact = await new contactModal(req.body);
+        res.json("success")
+    } catch (error) {
+        res.json(error)
+    }
+}
+exports.contactget = async (req, res) => {
+    try {
+        var contact = await contactModal.find();
+        res.json(contact)
+    } catch (error) {
+        res.json(error)
     }
 }

@@ -16,6 +16,8 @@ import "react-circular-progressbar/dist/styles.css";
 
 const Viewpropertydetails = () => {
   const data = useLocation()?.state;
+  const compare = useLocation()?.state?.compare;
+  console.log(compare);
   const [property, setProperty] = useState();
   const propertyId = useParams().propertyId;
   const [user] = useContext(UserContext);
@@ -26,14 +28,14 @@ const Viewpropertydetails = () => {
   const [filterproperty, setFiterProperty] = useState();
   const [show, setShow] = useState(false);
   const [table, setTable] = useState(false);
-  console.log(` show ${show}`)
-  console.log(` table ${table}`)
+  console.log(` show ${show}`);
+  console.log(` table ${table}`);
 
   const showFUnction = () => {
-    if(show){
-      setShow(false)
-    }else{
-      setShow(true)
+    if (show) {
+      setShow(false);
+    } else {
+      setShow(true);
     }
     $("html, body").animate(
       { scrollTop: document.body.scrollHeight },
@@ -631,11 +633,11 @@ const Viewpropertydetails = () => {
                 </div>
               )}
               <button
-                onClick={()=>{
-                  if(show){
-                    setShow(false)
-                  }else{
-                    setShow(true)
+                onClick={() => {
+                  if (show) {
+                    setShow(false);
+                  } else {
+                    setShow(true);
                   }
                   $("html, body").animate(
                     { scrollTop: document.body.scrollHeight },
@@ -844,6 +846,115 @@ const Viewpropertydetails = () => {
               </div>
             )}
           </>
+          {/* comapre table */}
+          <div>
+            <p className="h5 fw-bold mb-3">Comapre</p>
+            {compare?.map((data) => {
+              return (
+                <>
+                  <span
+                    className="me-2 text-light"
+                    style={{
+                      height: "50px",
+                      borderRadius: "20px",
+                      padding: "10px",
+                      width: "30px",
+                      position: "relative",
+                      backgroundColor: "rgb(102, 153, 204)",
+                    }}
+                  >
+                    {data?._id?.slice(0, 8)?.toUpperCase()}
+                  </span>
+                </>
+              );
+            })}
+          </div>
+          <table class="table border table-bordered mt-3">
+            <thead>
+              <tr>
+                {compare?.map((data) => {
+                  return <th>{data?.title}</th>;
+                })}
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                {compare?.map((data) => {
+                  return (
+                    <td>
+                      <div className="container">
+                        <div className="row">
+                          <div className="col-md-12">
+                            <div className="p-0 rounded mb-3">
+                              <img
+                                src={`http://localhost:5000/${data.images[0]}`}
+                                alt=""
+                                width={100}
+                                className="p-0"
+                                style={{ width: "100%", height: "100%" }}
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                  );
+                })}
+              </tr>
+              <tr>
+                {compare?.map((data) => {
+                  return (
+                    <td>
+                      <p className="fw-bold">Features</p>
+                      <div className="features p-0 m-0">
+                        {data.features.map((val, index) => {
+                          return (
+                            <span className="text-xs badge my-2">
+                              <li style={{ listStyle: "" }}>{val}</li>
+                            </span>
+                          );
+                        })}
+                      </div>
+                    </td>
+                  );
+                })}
+              </tr>
+              <tr>
+                {compare?.map((data) => {
+                  return (
+                    <td>
+                      <p className="fw-bold">Location</p>
+                      <div className="d-flex flex-wrap justify-content-start align-items-center mb-2">
+                        <div className="d-flex justify-content-start align-items-center me-2">
+                          <ion-icon
+                            name="location"
+                            style={{
+                              fontSize: "0.92rem",
+                            }}
+                          ></ion-icon>
+                          <p
+                            style={{ fontSize: "16px" }}
+                            className="text-xs mb-0 ms-1 "
+                          >
+                            {data?.address?.address} - {data?.address?.city}
+                          </p>
+                        </div>
+                      </div>
+                    </td>
+                  );
+                })}
+              </tr>
+              <tr>
+                {compare?.map((data) => {
+                  return (
+                    <td>
+                      <p className="fw-bold">NRP {data?.price}</p>
+                    </td>
+                  );
+                })}
+              </tr>
+            </tbody>
+          </table>
         </div>
       ) : (
         <>

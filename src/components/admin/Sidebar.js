@@ -28,6 +28,9 @@ const Sidebar = (props) => {
                     <Link id='manage-user' to='/manage-user' className='text-light' style={{ cursor: 'pointer', textDecoration: 'none' }}>Manage User</Link>
                 </div>
                 <div className="links mx-auto active_link  my-3 py-1" >
+                    <Link id='contact' to='/view-contact' className='text-light' style={{ cursor: 'pointer', textDecoration: 'none' }}>Messages</Link>
+                </div>
+                <div className="links mx-auto active_link  my-3 py-1" >
                     <Link onClick={() => localStorage.removeItem('token')} to='/login' className='text-light' style={{ cursor: 'pointer', textDecoration: 'none' }}>Logout</Link>
                 </div>
             </div>
